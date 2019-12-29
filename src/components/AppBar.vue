@@ -1,24 +1,14 @@
 <template>
-  <v-app-bar app clipped-left dark>
-    <v-app-bar-nav-icon @click.stop="toggleDrawer" />
+  <v-app-bar app clipped-left flat light class="light">
+    <v-app-bar-nav-icon v-if="isMobile" @click.stop="toggleDrawer" />
     <v-toolbar-title>S33D</v-toolbar-title>
     <template v-if="!isMobile">
       <v-spacer></v-spacer>
-      <v-btn text>
-        EXHIBITIONS
-      </v-btn>
-      <v-btn text>
-        FEED
-      </v-btn>
-      <v-btn text>
-        GALLERY
-      </v-btn>
-      <v-btn text>
-        ABOUT
-      </v-btn>
-      <v-btn text>
-        CONTACT
-      </v-btn>
+      <v-btn text>EXHIBITIONS</v-btn>
+      <v-btn text>FEED</v-btn>
+      <v-btn text>GALLERY</v-btn>
+      <v-btn text>ABOUT</v-btn>
+      <v-btn text>CONTACT</v-btn>
     </template>
   </v-app-bar>
 </template>
@@ -41,4 +31,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.light * {
+  font-weight: 300;
+}
+</style>

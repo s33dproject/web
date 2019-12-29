@@ -1,10 +1,8 @@
 <template>
-  <v-navigation-drawer :value="value" app clipped>
+  <v-navigation-drawer :value="value" app clipped disable-resize-watcher>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title class="title">
-          S33D
-        </v-list-item-title>
+        <v-list-item-title class="title">S33D</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -66,4 +64,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.v-list-item__title {
+  font-weight: 300 !important;
+}
+</style>
