@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <v-container class="py-8">
     <v-row>
-      <v-col class="py-8 text-center">
+      <v-col class="text-center">
         <div
           v-for="imageName in imageNames"
           :key="imageName"

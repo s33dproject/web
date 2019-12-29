@@ -15,10 +15,17 @@ const routes = [
     }
   },
   {
+    path: "/artwork/:name",
+    name: "artwork",
+    component: function() {
+      return import(/* webpackChunkName: "artwork" */ "../views/Artwork.vue");
+    }
+  },
+  {
     path: "*",
     name: "404",
     component: function() {
-      return import(/* webpackChunkName: "home" */ "../views/404.vue");
+      return import(/* webpackChunkName: "404" */ "../views/404.vue");
     }
   }
 ];
