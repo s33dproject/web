@@ -31,3 +31,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.v-application .v-application--wrap a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>

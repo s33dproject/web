@@ -1,7 +1,9 @@
 <template>
   <v-app-bar app clipped-left flat light>
     <v-app-bar-nav-icon v-if="isMobile" @click.stop="toggleDrawer" />
-    <v-toolbar-title class="font-weight-light">S33D</v-toolbar-title>
+    <v-toolbar-title class="font-weight-light">
+      <router-link to="/">S33D</router-link>
+    </v-toolbar-title>
     <template v-if="!isMobile">
       <v-spacer></v-spacer>
       <v-btn text>EXHIBITIONS</v-btn>
