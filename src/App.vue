@@ -5,6 +5,7 @@
     <v-content>
       <router-view />
     </v-content>
+    <Footer />
   </v-app>
 </template>
 
@@ -12,12 +13,14 @@
 import { mapState, mapMutations } from "vuex";
 import NavigationDrawer from "./components/NavigationDrawer";
 import AppBar from "./components/AppBar";
+import Footer from "./components/Footer";
 
 export default {
   name: "App",
   components: {
     NavigationDrawer,
-    AppBar
+    AppBar,
+    Footer
   },
   data: () => ({}),
   computed: {
