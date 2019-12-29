@@ -3,11 +3,11 @@
     <v-row>
       <v-col class="py-8 text-center">
         <div
-          v-for="imagePath in imagePaths"
-          :key="imagePath"
+          v-for="imageName in imageNames"
+          :key="imageName"
           class="d-inline-block mx-1"
         >
-          <FeedImage :path="imagePath" />
+          <FeedImage :name="imageName" />
         </div>
         <div v-for="n in 23" :key="n" class="d-inline-block mx-1">
           <FeedImagePlaceholder />
@@ -28,7 +28,7 @@ export default {
     FeedImage
   },
   data: () => ({
-    imagePaths: ["/s33d/fur.jpg", "/s33d/flower.png"]
+    imageNames: ["fur", "flower"]
   })
 };
 </script>

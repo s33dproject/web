@@ -13,6 +13,13 @@ const routes = [
     component: function() {
       return import(/* webpackChunkName: "home" */ "../views/Home.vue");
     }
+  },
+  {
+    path: "*",
+    name: "404",
+    component: function() {
+      return import(/* webpackChunkName: "home" */ "../views/404.vue");
+    }
   }
 ];
 
