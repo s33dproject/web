@@ -3,7 +3,9 @@
     <NavigationDrawer :value="drawer" />
     <AppBar :toggle-drawer="toggleDrawer" />
     <v-content>
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </v-content>
     <Footer />
   </v-app>
@@ -33,6 +35,23 @@ export default {
 </script>
 
 <style lang="scss">
+/* fade transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+/* overwrites */
 .v-application .v-application--wrap a {
   text-decoration: none;
   color: inherit;
