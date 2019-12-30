@@ -22,8 +22,7 @@
 </template>
 
 <script>
-const baseUrl = "https://res.cloudinary.com/s33d/image/upload";
-const folder = "artworks";
+import { getFeedSrc, getThumbSrc } from "../utils/cloudinary.helper";
 
 export default {
   name: "FeedImage",
@@ -35,10 +34,10 @@ export default {
   },
   computed: {
     src() {
-      return `${baseUrl}/f_png,w_300,h_300/${folder}/${this.name}`;
+      return getFeedSrc(this.name);
     },
     lazySrc() {
-      return `${baseUrl}/f_jpg,t_media_lib_thumb/${folder}/${this.name}`;
+      return getThumbSrc(this.name);
     }
   }
 };

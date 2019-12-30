@@ -16,8 +16,7 @@
 </template>
 
 <script>
-const baseUrl = "https://res.cloudinary.com/s33d/image/upload";
-const folder = "artworks";
+import { getSrc, getThumbSrc } from "../utils/cloudinary.helper";
 
 export default {
   name: "FullImage",
@@ -29,10 +28,10 @@ export default {
   },
   computed: {
     src() {
-      return `${baseUrl}/f_png/${folder}/${this.name}`;
+      return getSrc(this.name);
     },
     lazySrc() {
-      return `${baseUrl}/f_jpg,t_media_lib_thumb/${folder}/${this.name}`;
+      return getThumbSrc(this.name);
     }
   }
 };
