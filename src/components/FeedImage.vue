@@ -1,6 +1,7 @@
 <template>
   <router-link :to="`/artwork/${name}`">
     <v-img
+      eager
       aspect-ratio="1"
       height="300"
       width="300"
@@ -21,7 +22,8 @@
 </template>
 
 <script>
-const baseUrl = "https://res.cloudinary.com/gmaiolo/image/upload";
+const baseUrl = "https://res.cloudinary.com/s33d/image/upload";
+const folder = "artworks";
 
 export default {
   name: "FeedImage",
@@ -33,10 +35,10 @@ export default {
   },
   computed: {
     src() {
-      return `${baseUrl}/w_300,h_300/s33d/${this.name}`;
+      return `${baseUrl}/f_png,w_300,h_300/${folder}/${this.name}`;
     },
     lazySrc() {
-      return `${baseUrl}/t_media_lib_thumb/s33d/${this.name}`;
+      return `${baseUrl}/f_jpg,t_media_lib_thumb/${folder}/${this.name}`;
     }
   }
 };

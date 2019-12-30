@@ -16,7 +16,8 @@
 </template>
 
 <script>
-const baseUrl = "https://res.cloudinary.com/gmaiolo/image/upload";
+const baseUrl = "https://res.cloudinary.com/s33d/image/upload";
+const folder = "artworks";
 
 export default {
   name: "FullImage",
@@ -28,10 +29,10 @@ export default {
   },
   computed: {
     src() {
-      return `${baseUrl}/s33d/${this.name}`;
+      return `${baseUrl}/f_png/${folder}/${this.name}`;
     },
     lazySrc() {
-      return `${baseUrl}/t_media_lib_thumb/s33d/${this.name}`;
+      return `${baseUrl}/f_jpg,t_media_lib_thumb/${folder}/${this.name}`;
     }
   }
 };

@@ -2,33 +2,38 @@
   <v-container class="py-8">
     <v-row>
       <v-col class="text-center">
-        <div
+        <figure
           v-for="imageName in imageNames"
           :key="imageName"
           class="d-inline-block mx-1"
         >
           <FeedImage :name="imageName" />
-        </div>
-        <div v-for="n in 23" :key="n" class="d-inline-block mx-1">
-          <FeedImagePlaceholder />
-        </div>
+        </figure>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import FeedImagePlaceholder from "../components/FeedImagePlaceholder";
 import FeedImage from "../components/FeedImage";
 
 export default {
   name: "home",
   components: {
-    FeedImagePlaceholder,
     FeedImage
   },
   data: () => ({
-    imageNames: ["fur", "flower"]
+    imageNames: [
+      "bw_fur",
+      "flower",
+      "chars",
+      "pacmen_1",
+      "chars_1",
+      "pacmen_2",
+      "chars_0",
+      "flower_5",
+      "pacmen_5"
+    ]
   })
 };
 </script>
