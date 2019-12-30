@@ -1,8 +1,9 @@
 <template>
   <v-img
+    contain
     aspect-ratio="1"
     max-width="100%"
-    max-height="100%"
+    max-height="80vh"
     :src="src"
     :lazy-src="lazySrc"
   >
@@ -35,5 +36,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

@@ -1,8 +1,10 @@
 <template>
   <v-container class="px-0 pt-8" fluid>
-    <h1 class="font-weight-light text-center pb-4">{{ name }}</h1>
     <figure>
       <FullImage :name="name" />
+      <figcaption class="mt-2 font-weight-light text-center">
+        {{ name }} — 2019
+      </figcaption>
     </figure>
   </v-container>
 </template>
@@ -22,3 +24,8 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+figure {
+}
+</style>
