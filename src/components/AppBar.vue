@@ -7,8 +7,8 @@
     <template v-if="!isMobile">
       <v-spacer></v-spacer>
       <!--<v-btn text>EXHIBITIONS</v-btn>
-      <v-btn text>FEED</v-btn>
-      <v-btn text>GALLERY</v-btn>-->
+      <v-btn text>FEED</v-btn>-->
+      <v-btn to="/" text>GALLERY</v-btn>
       <v-btn to="/About" text>ABOUT</v-btn>
       <v-btn to="/Contact" text>CONTACT</v-btn>
     </template>

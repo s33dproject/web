@@ -70,6 +70,7 @@ export default {
       "carnation_flower_V",
       "carnation_flower_XIV",
       "carnation_flower_XV",
+      "carnation_flower_XXIV",
       "hodgepodge_I",
       "hodgepodge_IV",
       "hodgepodge_V",
