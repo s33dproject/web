@@ -9,8 +9,8 @@
       <v-btn text>EXHIBITIONS</v-btn>
       <v-btn text>FEED</v-btn>
       <v-btn text>GALLERY</v-btn>
-      <v-btn text>ABOUT</v-btn>
-      <v-btn text>CONTACT</v-btn>
+      <v-btn to="/About" text>ABOUT</v-btn>
+      <v-btn to="/Contact" text>CONTACT</v-btn>
     </template>
   </v-app-bar>
 </template>

@@ -10,21 +10,35 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (home.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: function() {
+    component: function () {
       return import(/* webpackChunkName: "home" */ "../views/Home.vue");
     }
   },
   {
     path: "/artwork/:name",
     name: "artwork",
-    component: function() {
+    component: function () {
       return import(/* webpackChunkName: "artwork" */ "../views/Artwork.vue");
+    }
+  },
+  {
+    path: "/about/",
+    name: "about",
+    component: function () {
+      return import(/* webpackChunkName: "artwork" */ "../views/About.vue");
+    }
+  },
+  {
+    path: "/contact/",
+    name: "contact",
+    component: function () {
+      return import(/* webpackChunkName: "artwork" */ "../views/Contact.vue");
     }
   },
   {
     path: "*",
     name: "404",
-    component: function() {
+    component: function () {
       return import(/* webpackChunkName: "404" */ "../views/404.vue");
     }
   }
