@@ -22,17 +22,17 @@ const routes = [
     }
   },
   {
-    path: "/about/",
+    path: "/about",
     name: "about",
     component: function () {
-      return import(/* webpackChunkName: "artwork" */ "../views/About.vue");
+      return import(/* webpackChunkName: "about" */ "../views/About.vue");
     }
   },
   {
-    path: "/contact/",
+    path: "/contact",
     name: "contact",
     component: function () {
-      return import(/* webpackChunkName: "artwork" */ "../views/Contact.vue");
+      return import(/* webpackChunkName: "contact" */ "../views/Contact.vue");
     }
   },
   {

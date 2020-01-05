@@ -9,8 +9,8 @@
       <!--<v-btn text>EXHIBITIONS</v-btn>
       <v-btn text>FEED</v-btn>-->
       <v-btn to="/" text>GALLERY</v-btn>
-      <v-btn to="/About" text>ABOUT</v-btn>
-      <v-btn to="/Contact" text>CONTACT</v-btn>
+      <v-btn to="/about" text>ABOUT</v-btn>
+      <v-btn to="/contact" text>CONTACT</v-btn>
     </template>
   </v-app-bar>
 </template>
@@ -32,3 +32,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.v-btn--active::before {
+  /* TODO: define how to make links look when route is selected */
+  opacity: 0 !important;
+}
+</style>

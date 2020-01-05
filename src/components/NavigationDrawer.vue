@@ -8,27 +8,27 @@
 
     <v-divider></v-divider>
     <v-list dense>
-      <v-list-item link>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title>EXHIBITIONS</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title>FEED</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title>GALLERY</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item to="/about">
         <v-list-item-content>
           <v-list-item-title>ABOUT</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item to="/contact">
         <v-list-item-content>
           <v-list-item-title>CONTACT</v-list-item-title>
         </v-list-item-content>
