@@ -7,12 +7,17 @@
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3" class="text-center">
         <p>
-          S33D is a Generative Art project by
-          <a class="indigo--text" href="https://www.instagram.com/g.maiolo/"
+          <span class="font-weight-medium">S33D</span> is a Generative Art
+          project by
+          <a
+            class="indigo--text font-weight-medium"
+            href="https://www.instagram.com/g.maiolo/"
             >@g.maiolo</a
           >
           &
-          <a class="indigo--text" href="https://www.instagram.com/julietaflux/"
+          <a
+            class="indigo--text font-weight-medium"
+            href="https://www.instagram.com/julietaflux/"
             >@julietaflux</a
           >
         </p>
