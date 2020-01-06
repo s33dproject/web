@@ -2,11 +2,7 @@
   <v-container class="py-8">
     <v-row>
       <v-col class="text-center">
-        <figure
-          v-for="imageName in imageNames"
-          :key="imageName"
-          class="d-inline-block mx-1"
-        >
+        <figure v-for="imageName in imageNames" :key="imageName" class="d-inline-block mx-1">
           <FeedImage :name="imageName" />
         </figure>
       </v-col>
@@ -18,7 +14,7 @@
 import FeedImage from "../components/FeedImage";
 
 export default {
-  name: "home",
+  name: "gallery",
   components: {
     FeedImage
   },
