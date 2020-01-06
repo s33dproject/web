@@ -1,11 +1,9 @@
 <template>
-  <v-container class="font-weight-light" justify-center align-content-center>
-    <v-row>
-      <v-col id="col" cols="12" class="text-center">
-        <canvas id="canvas"></canvas>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col id="col" cols="12" class="text-center pa-0">
+      <canvas id="canvas"></canvas>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
