@@ -10,9 +10,9 @@
 export default {
   mounted() {
     const canvas = document.getElementById("canvas");
-    canvas.width = document.getElementById("col").clientWidth - 100;
+    canvas.width = document.getElementById("col").clientWidth;
     canvas.height =
-      document.querySelector(".v-content__wrap").clientHeight - 100;
+      document.querySelector(".v-content__wrap").clientHeight;
 
     const context = canvas.getContext("2d", { alpha: false });
     const center = {
