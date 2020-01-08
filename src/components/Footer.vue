@@ -1,10 +1,11 @@
 <template>
-  <v-footer app light padless>
-    <v-card flat tile class="d-flex pa-3" width="100%">
-      <span class="ma-auto">S33D © {{ new Date().getFullYear() }}</span>
+  <v-footer app light>
+    <v-card flat tile class="d-flex pa-auto transparent" width="100%">
+      <span class="ma-auto body-2">S33D © {{ new Date().getFullYear() }}</span>
       <v-spacer></v-spacer>
       <div class="d-inline-block">
         <v-btn
+          x-small
           icon
           v-for="link in links"
           :key="link.url"

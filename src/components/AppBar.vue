@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app clipped-left flat light>
+  <v-app-bar app clipped-left flat light dense>
     <v-app-bar-nav-icon v-if="isMobile" @click.stop="toggleDrawer" />
     <v-toolbar-title class="font-weight-light">
       <router-link to="/">S33D</router-link>
