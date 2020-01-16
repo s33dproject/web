@@ -11,8 +11,7 @@ export default {
   mounted() {
     const canvas = document.getElementById("canvas");
     canvas.width = document.getElementById("col").clientWidth;
-    canvas.height =
-      document.querySelector(".v-content__wrap").clientHeight;
+    canvas.height = document.querySelector(".v-content__wrap").clientHeight;
 
     const context = canvas.getContext("2d", { alpha: false });
     const center = {
@@ -33,7 +32,7 @@ export default {
       context.beginPath();
       context.rotate(0.0025);
       context.shadowColor = `hsl(${ms * 0.1}, 100%, 100%)`;
-      context.shadowBlur = 0.01;
+      context.shadowBlur = 0.01; // in 16 this is fun
       const step = Math.PI / ((ms % 200) + 50);
       let angle = 0;
       while (angle < Math.PI * 2) {
