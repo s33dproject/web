@@ -1,18 +1,19 @@
 <template>
-  <v-row>
-    <v-col id="col" cols="12" class="text-center pa-0">
+  <v-container fill-height fluid align-center justify-center class="pa-0">
+    <div>
       <canvas id="canvas"></canvas>
-    </v-col>
-  </v-row>
+    </div>
+  </v-container>
 </template>
 
 <script>
 export default {
   mounted() {
     const canvas = document.getElementById("canvas");
-    canvas.width = document.getElementById("col").clientWidth;
-    canvas.height =
-      document.querySelector(".v-content__wrap").clientHeight;
+    const { clientWidth } = document.querySelector(".v-content__wrap");
+    const size = clientWidth >= 400 ? 400 : clientWidth;
+    canvas.width = size;
+    canvas.height = size;
 
     const context = canvas.getContext("2d", { alpha: false });
     const center = {
@@ -29,7 +30,7 @@ export default {
     function render(ms) {
       ms = ms / 4;
       context.globalAlpha = 0.77;
-      context.fillRect(-400, -400, 1200, 1200); // podria achicarlo
+      context.fillRect(-250, -250, 750, 750); // podria achicarlo
       context.globalAlpha = 1;
       context.beginPath();
       context.rotate(0.025);
@@ -42,7 +43,7 @@ export default {
         const tan = Math.tan(ms * 0.00025);
         const cos = Math.cos(ms * 0.00015 * angle * tan);
         const sin = Math.sin(ms * 0.01);
-        const len = 150 + 150 * cos * sin;
+        const len = 125 * cos * sin;
         context.lineTo(len * Math.cos(angle), len * Math.sin(angle));
         angle += step;
       }
@@ -65,5 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* placeholder */
+.container {
+  background-color: black;
+}
 </style>
