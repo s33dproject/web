@@ -5,7 +5,8 @@
         <figure
           v-for="imageName in imageNames"
           :key="imageName"
-          class="d-inline-block mx-1"
+          style="width: 300px;"
+          class="d-inline-flex mx-1 justify-center"
         >
           <FeedImage :name="imageName" />
         </figure>
@@ -43,7 +44,7 @@ export default {
       "noname_X",
       "noname_XI",
       "noname_XII",
-      "geometry_platforms_I",
+      // "geometry_platforms_I",
       "geometry_platforms_II",
       "geometry_platforms_III",
       "geometry_platforms_IV",

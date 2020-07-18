@@ -2,10 +2,9 @@
   <router-link :to="`/artwork/${name}`">
     <v-img
       eager
-      aspect-ratio="1"
+      contain
       height="300"
-      width="300"
-      min-width="300"
+      max-width="300"
       :src="src"
       :lazy-src="lazySrc"
     >
