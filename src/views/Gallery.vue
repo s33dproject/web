@@ -44,7 +44,7 @@ export default {
       "noname_X",
       "noname_XI",
       "noname_XII",
-      // "geometry_platforms_I",
+      "geometry_platforms_I",
       "geometry_platforms_II",
       "geometry_platforms_III",
       "geometry_platforms_IV",
