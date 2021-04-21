@@ -1,26 +1,21 @@
 <template>
-  <v-row>
-    <v-col id="col" cols="12" class="text-center pa-0">
-      <canvas id="canvas"></canvas>
-    </v-col>
-  </v-row>
+  <canvas id="canvas"></canvas>
 </template>
 
 <script>
 export default {
+  name: "NoName",
   mounted() {
     const canvas = document.getElementById("canvas");
-    canvas.width = document.getElementById("col").clientWidth;
-    canvas.height =
-      document.querySelector(".v-content__wrap").clientHeight;
-
     const context = canvas.getContext("2d", { alpha: false });
-    const center = {
-      x: canvas.width >> 1,
-      y: canvas.height >> 1
-    };
+    const { clientWidth } = document.querySelector(".v-content__wrap");
+    const size = clientWidth >= 400 ? 400 : clientWidth;
+    const center = size >> 1;
 
-    context.setTransform(1, 0, 0, 1, center.x, center.y);
+    canvas.width = size;
+    canvas.height = size;
+
+    context.setTransform(1, 0, 0, 1, center, center);
     context.lineWidth = 2;
     context.strokeStyle = "rgba(0,0,0,0.8)";
     context.shadowBlur = 16;
@@ -29,7 +24,7 @@ export default {
     function render(ms) {
       ms = ms / 4;
       context.globalAlpha = 0.77;
-      context.fillRect(-400, -400, 1200, 1200); // podria achicarlo
+      context.fillRect(-250, -250, 750, 750); // could be smaller
       context.globalAlpha = 1;
       context.beginPath();
       context.rotate(0.025);
@@ -42,15 +37,15 @@ export default {
         const tan = Math.tan(ms * 0.00025);
         const cos = Math.cos(ms * 0.00015 * angle * tan);
         const sin = Math.sin(ms * 0.01);
-        const len = 150 + 150 * cos * sin;
+        const len = 125 * cos * sin; // add or change for size
         context.lineTo(len * Math.cos(angle), len * Math.sin(angle));
         angle += step;
       }
       context.stroke();
       context.globalCompositeOperation = "lighter";
       context.shadowBlur = 0;
-      context.drawImage(context.canvas, -center.x, -center.y);
-      context.drawImage(context.canvas, -center.x, -center.y);
+      context.drawImage(context.canvas, -center, -center);
+      context.drawImage(context.canvas, -center, -center);
       context.globalCompositeOperation = "source-over";
     }
 
@@ -60,10 +55,7 @@ export default {
     }
 
     requestAnimationFrame(loop);
-  }
+  },
+  destroyed() {}
 };
 </script>
-
-<style lang="scss" scoped>
-/* placeholder */
-</style>

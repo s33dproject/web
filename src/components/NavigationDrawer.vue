@@ -8,17 +8,7 @@
 
     <v-divider></v-divider>
     <v-list dense>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>EXHIBITIONS</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>FEED</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
+      <v-list-item to="/gallery">
         <v-list-item-content>
           <v-list-item-title>GALLERY</v-list-item-title>
         </v-list-item-content>

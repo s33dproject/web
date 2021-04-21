@@ -5,7 +5,8 @@
         <figure
           v-for="imageName in imageNames"
           :key="imageName"
-          class="d-inline-block mx-1"
+          style="width: 300px;"
+          class="d-inline-flex ma-3 justify-center"
         >
           <FeedImage :name="imageName" />
         </figure>

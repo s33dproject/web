@@ -2,13 +2,17 @@
   <v-app-bar app clipped-left flat light dense>
     <v-app-bar-nav-icon v-if="isMobile" @click.stop="toggleDrawer" />
     <router-link to="/">
-      <v-img :src="require('@/assets/logo.png')" alt="logo" max-height="40" max-width="60" contain></v-img>
+      <v-img
+        src="../assets/logo.png"
+        alt="logo"
+        max-height="40"
+        max-width="60"
+        contain
+      ></v-img>
     </router-link>
     <v-toolbar-title class="font-weight-light"></v-toolbar-title>
     <template v-if="!isMobile">
       <v-spacer></v-spacer>
-      <!--<v-btn text>EXHIBITIONS</v-btn>
-      <v-btn text>FEED</v-btn>-->
       <v-btn to="/gallery" text>GALLERY</v-btn>
       <v-btn to="/about" text>ABOUT</v-btn>
       <v-btn to="/contact" text>CONTACT</v-btn>
