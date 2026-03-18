@@ -16,6 +16,25 @@
   color: var(--fg);
 }
 
+body.nav-menu-open .site-header-centered .nav-spacer,
+body.nav-menu-open .site-header-centered .brand,
+body.nav-menu-open .site-header-centered .header-center-content,
+body.nav-menu-open .manifest-header .nav-spacer,
+body.nav-menu-open .manifest-header .header-center-content {
+  position: relative;
+  z-index: 1002;
+}
+
+body.nav-menu-open .site-header-centered .nav-menu-trigger,
+body.nav-menu-open .manifest-header .nav-menu-trigger {
+  position: relative;
+  z-index: 1001;
+}
+
+body.nav-menu-open .nav-menu-btn {
+  z-index: 1002;
+}
+
 .nav-menu-overlay {
   position: fixed;
   top: 0;
@@ -46,6 +65,25 @@
   padding: 4rem 2rem;
   animation: nav-menu-slide-down 0.25s ease-out;
 }
+
+.nav-menu-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
 
 @keyframes nav-menu-slide-down {
   from {

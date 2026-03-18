@@ -65,9 +65,18 @@ export default function NavMenu() {
           className="nav-menu-overlay"
           role="dialog"
           aria-modal="true"
+          aria-label="Navigation menu"
           onClick={(e) => e.target === e.currentTarget && setOpen(false)}
         >
           <div className="nav-menu-panel">
+            <button
+              type="button"
+              className="nav-menu-close"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+            >
+              {CLOSE_ICON}
+            </button>
             <div className="nav-menu-columns">
               <div className="nav-menu-col">
                 <span className="nav-menu-title">s33d/</span>

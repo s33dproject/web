@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+body.void-page .site-footer {
+  display: none;
+}
+
 .void-header {
   position: fixed;
   top: 0;
@@ -14,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 2rem;
-  background: var(--bg);
+  background: transparent;
 }
 
 .void-header .brand {

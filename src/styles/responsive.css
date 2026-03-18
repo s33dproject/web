@@ -451,6 +451,11 @@
     min-height: 50vh;
   }
 
+  .nav-menu-close {
+    top: 1rem;
+    right: 1rem;
+  }
+
   .nav-menu-columns {
     grid-template-columns: 1fr;
     gap: 1.25rem;

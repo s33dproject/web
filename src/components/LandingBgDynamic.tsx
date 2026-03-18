@@ -6,12 +6,9 @@ const TOTAL_DURATION = SEGMENT_DURATION * PIECE_COUNT;
 const SCRIBBLE_FPS = 25;
 const OVERDRAW_FPS = 30;
 
-const PIECE_NAMES = [
-  "Black Noise",
-  "Animated Regl Fullscreen Shader",
-  "Animated Two Overdraw",
-  "Animated Scribble Curves",
-];
+const PIECE_NAMES = Array.from({ length: PIECE_COUNT }, (_, i) =>
+  `seed ${String(i + 1).padStart(2, "0")}`
+);
 
 const VS = `
   attribute vec2 position;

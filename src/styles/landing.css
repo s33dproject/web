@@ -118,6 +118,7 @@ body.nav-menu-open header {
   background: var(--bg);
 }
 
+
 .site-header-centered {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
