@@ -1,0 +1,152 @@
+.sketches-page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.sketches-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: var(--bg);
+}
+
+.sketches-header .brand {
+  font-size: 1.25rem;
+}
+
+.sketches-header .header-center-content {
+  justify-self: center;
+}
+
+.sketches-main {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-top: 5.5rem;
+}
+
+.sketch-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sketch-search-wrap:focus-within {
+  border-bottom-color: var(--gray);
+}
+
+.sketch-search {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  color: var(--fg);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.sketch-search::placeholder {
+  color: var(--muted);
+}
+
+.sketch-search-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.sketch-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sketch-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+
+.sketch-row:last-child {
+  border-bottom: none;
+}
+
+.sketch-type-tag {
+  flex-shrink: 0;
+  width: 3.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-transform: lowercase;
+}
+
+.sketch-row:hover {
+  background: rgba(156, 156, 156, 0.06);
+}
+
+.sketch-row-loading {
+  pointer-events: none;
+}
+
+.sketch-filename {
+  flex-shrink: 0;
+  min-width: 180px;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.sketch-tech {
+  flex: 1;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.sketch-run-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.sketch-run-btn:hover:not(:disabled) {
+  border-color: var(--gray);
+  color: var(--fg);
+}
+
+.sketch-run-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sketch-run-btn svg {
+  width: 16px;
+  height: 16px;
+}

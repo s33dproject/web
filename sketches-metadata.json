@@ -1,0 +1,214 @@
+{
+  "animated-two-bitmap": {
+    "tech": ["canvas-sketch", "Two.js", "load-asset"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.2, "max": 1, "step": 0.05, "value": 0.8 },
+      { "key": "scale", "label": "Scale", "min": 0.5, "max": 2, "step": 0.1, "value": 1 }
+    ]
+  },
+  "black-noise-shader": {
+    "tech": ["canvas-sketch", "WebGL", "GLSL", "glsl-noise"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.25, "max": 3, "step": 0.1, "value": 1 },
+      { "key": "scale", "label": "Scale", "min": 2, "max": 20, "step": 1, "value": 10 }
+    ]
+  },
+  "canvas-geometric-3d": {
+    "tech": ["canvas-sketch", "convex-hull", "gl-matrix", "palettes"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 1, "max": 12, "step": 0.5, "value": 6 }
+    ]
+  },
+  "carnation-flower": {
+    "tech": ["canvas-sketch", "b-spline", "palettes"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 10, "max": 200, "step": 5, "value": 100 }
+    ]
+  },
+  "carnation-hole": {
+    "tech": ["canvas-sketch", "b-spline", "palettes"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 10, "max": 150, "step": 5, "value": 30 }
+    ]
+  },
+  "circle-color-noise": {
+    "tech": ["canvas-sketch", "WebGL", "GLSL", "glsl-noise"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.25, "max": 3, "step": 0.1, "value": 1 }
+    ]
+  },
+  "circle-color-shader": {
+    "tech": ["canvas-sketch", "WebGL", "GLSL", "glsl-noise", "glsl-hsl2rgb"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.05, "max": 0.5, "step": 0.01, "value": 0.1 },
+      { "key": "radius", "label": "Radius", "min": 0.1, "max": 0.5, "step": 0.01, "value": 0.25 }
+    ]
+  },
+  "cubes-lighting": {
+    "tech": ["canvas-sketch", "Three.js", "palettes"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.1, "max": 1, "step": 0.05, "value": 0.25 },
+      { "key": "zoom", "label": "Zoom", "min": 1, "max": 3, "step": 0.1, "value": 1.85 }
+    ]
+  },
+  "dither": {
+    "tech": ["canvas-sketch", "regl", "glslify", "glsl-dither", "primitive-icosphere"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.5, "max": 2, "step": 0.1, "value": 1 }
+    ]
+  },
+  "doctor-handwriting": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 0.5, "max": 3, "step": 0.1, "value": 1 },
+      { "key": "opacity", "label": "Opacity", "min": 0.3, "max": 1, "step": 0.05, "value": 0.75 }
+    ]
+  },
+  "flower": {
+    "tech": ["canvas-sketch"],
+    "params": [
+      { "key": "points", "label": "Points", "min": 50, "max": 400, "step": 10, "value": 200 },
+      { "key": "radius", "label": "Radius", "min": 0.01, "max": 0.05, "step": 0.002, "value": 0.02 }
+    ]
+  },
+  "full-black-noise": {
+    "tech": ["canvas-sketch", "WebGL", "GLSL", "glsl-noise"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.25, "max": 3, "step": 0.1, "value": 1 }
+    ]
+  },
+  "fur": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 0.5, "max": 3, "step": 0.1, "value": 1 },
+      { "key": "opacity", "label": "Opacity", "min": 0.05, "max": 0.5, "step": 0.01, "value": 0.15 }
+    ]
+  },
+  "garland": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.3, "max": 1, "step": 0.05, "value": 1 }
+    ]
+  },
+  "image-pixel-sorting": {
+    "tech": ["canvas-sketch", "load-asset"],
+    "params": [
+      { "key": "skipChance", "label": "Skip chance", "min": 0.5, "max": 0.99, "step": 0.01, "value": 0.75 }
+    ]
+  },
+  "noise-characters": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.05, "value": 0.85 },
+      { "key": "character", "label": "Character", "type": "text", "value": "¨", "placeholder": "¨ § · …" }
+    ]
+  },
+  "noise-characters-bnw": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.05, "value": 0.85 },
+      { "key": "character", "label": "Character", "type": "text", "value": "¨", "placeholder": "¨ § · …" }
+    ]
+  },
+  "noise-text-characters": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.05, "value": 0.85 },
+      { "key": "character", "label": "Character", "type": "text", "value": ".", "placeholder": ". , · …" }
+    ]
+  },
+  "noise-text-characters-bnw": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.05, "value": 0.85 },
+      { "key": "character", "label": "Character", "type": "text", "value": ".", "placeholder": ". , · …" }
+    ]
+  },
+  "noname": {
+    "tech": ["canvas-sketch"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.01, "value": 0.77 }
+    ]
+  },
+  "origin": {
+    "tech": ["canvas-sketch", "gl-matrix", "lerp"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 1, "max": 15, "step": 0.5, "value": 5 },
+      { "key": "lineLength", "label": "Line length", "min": 10, "max": 150, "step": 1, "value": 55 },
+      { "key": "margin", "label": "Margin", "min": 50, "max": 200, "step": 5, "value": 100 }
+    ]
+  },
+  "pen-plotter-lines": {
+    "tech": ["canvas-sketch", "penplot", "gl-matrix"],
+    "params": [
+      { "key": "lineLength", "label": "Line length", "min": 0.2, "max": 1, "step": 0.05, "value": 0.5 },
+      { "key": "margin", "label": "Margin", "min": 0.5, "max": 4, "step": 0.1, "value": 2 }
+    ]
+  },
+  "pie-charts-partial": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "margin", "label": "Margin", "min": 0.1, "max": 0.4, "step": 0.02, "value": 0.2 }
+    ]
+  },
+  "pie-charts-partial-animate": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "margin", "label": "Margin", "min": 0.1, "max": 0.4, "step": 0.02, "value": 0.2 }
+    ]
+  },
+  "planets/index": {
+    "tech": ["canvas-sketch", "Three.js", "OrbitControls"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.5, "max": 2, "step": 0.1, "value": 1 }
+    ]
+  },
+  "random-circles": {
+    "tech": ["canvas-sketch", "lerp"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 10, "max": 80, "step": 2, "value": 40 },
+      { "key": "margin", "label": "Margin", "min": 100, "max": 500, "step": 10, "value": 300 }
+    ]
+  },
+  "random-palettes-on-circles": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 5, "max": 40, "step": 1, "value": 20 },
+      { "key": "margin", "label": "Margin", "min": 100, "max": 500, "step": 10, "value": 300 }
+    ]
+  },
+  "rings": {
+    "tech": ["canvas-sketch", "b-spline"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 1, "max": 50, "step": 1, "value": 5 }
+    ]
+  },
+  "risograph": {
+    "tech": ["canvas-sketch", "seed-random", "palettes"],
+    "params": [
+      { "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.05, "value": 1 }
+    ]
+  },
+  "sol-lewitt": {
+    "tech": ["canvas-sketch", "palettes", "lerp"],
+    "params": [
+      { "key": "lineWidth", "label": "Line width", "min": 0.2, "max": 1.5, "step": 0.1, "value": 0.7 }
+    ]
+  },
+  "some-rings": {
+    "tech": ["p5"]
+  },
+  "three-concepts-meshes": {
+    "tech": ["canvas-sketch", "Three.js", "palettes"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.5, "max": 2, "step": 0.1, "value": 1 }
+    ]
+  },
+  "webgl-rotating-geometry": {
+    "tech": ["canvas-sketch", "Three.js", "palettes", "eases", "bezier-easing"],
+    "params": [
+      { "key": "speed", "label": "Speed", "min": 0.25, "max": 3, "step": 0.05, "value": 1 },
+      { "key": "zoom", "label": "Zoom", "min": 0.5, "max": 2, "step": 0.05, "value": 1 }
+    ]
+  }
+}

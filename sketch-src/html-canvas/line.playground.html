@@ -1,0 +1,61 @@
+<body>
+  <div>
+    <canvas id=canvas width=640 height=640></canvas>
+  </div>
+</body>
+
+<style>
+  body { display: flex; justify-items: center; align-content: center; background: lightgray; }
+  div { margin: auto; }
+  canvas { background-color: black; }
+</style>
+
+<script>
+const degreesToRadians = (deg) => deg * (Math.PI/180)
+const context = canvas.getContext('2d')
+const w = canvas.width
+const h = canvas.height
+const center = {
+  x: w >> 1,
+  y: h >> 1,
+}
+const origin = {
+  x: ~~(Math.random() * w),
+  y: ~~(Math.random() * h),
+}
+
+context.lineWidth = 1
+context.strokeStyle = 'white'
+context.imageSmoothingEnabled = true
+
+function drawStatic () {
+  context.beginPath()
+  context.arc(25, 25, 35, 0, 2 * Math.PI, false)
+  context.fillStyle = 'green'
+  context.fill()
+  context.closePath()
+}
+
+let deg = 0
+function render(ms) {
+  const len = 1000
+  const step = 0.75
+  const theta = degreesToRadians(deg)
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  drawStatic()
+  context.beginPath()
+  context.moveTo(origin.x, origin.y)
+  context.lineTo(origin.x + len * Math.cos(theta), origin.y + len * Math.sin(theta))
+  context.stroke()
+  deg = deg > 360 ? 0 : deg + 0.75
+}
+
+
+
+function loop(ms) {
+  render(ms)
+  requestAnimationFrame(loop)
+}
+
+requestAnimationFrame(loop)
+</script>

@@ -1,0 +1,16 @@
+:root {
+  --font-primary: "JetBrains Mono", "SF Mono", "Fira Code", "Consolas", monospace;
+  --font-secondary: "Doto", "JetBrains Mono", monospace;
+  --black: #000000;
+  --gray: #9C9C9C;
+  --white: #FFFFFF;
+  --bg: var(--black);
+  --bg-card: var(--black);
+  --card-bg: var(--black);
+  --fg: var(--white);
+  --fg-muted: var(--gray);
+  --muted: var(--gray);
+  --accent: var(--gray);
+  --accent-hover: var(--white);
+  --border: rgba(156, 156, 156, 0.25);
+}

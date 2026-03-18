@@ -1,0 +1,10 @@
+@import "./styles/variables.css";
+@import "./styles/base.css";
+@import "./styles/landing.css";
+@import "./styles/nav-menu.css";
+@import "./styles/footer.css";
+@import "./styles/manifest.css";
+@import "./styles/gallery.css";
+@import "./styles/void.css";
+@import "./styles/sketches.css";
+@import "./styles/run.css";

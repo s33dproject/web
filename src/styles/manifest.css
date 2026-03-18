@@ -1,0 +1,56 @@
+.manifest-page {
+  min-height: 100vh;
+  background: var(--bg);
+  overflow-x: clip;
+}
+
+.manifest-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: var(--bg);
+}
+
+.manifest-header .brand {
+  font-size: 1.25rem;
+}
+
+.manifest-header .header-center-content {
+  justify-self: center;
+}
+
+.manifest-main {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+
+.manifest-main .landing-columns {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.manifest-main .landing-text {
+  color: var(--fg);
+}
+
+.manifest-comments {
+  user-select: none;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  line-height: 1.65;
+  white-space: pre-line;
+}

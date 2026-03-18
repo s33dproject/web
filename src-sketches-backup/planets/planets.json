@@ -1,0 +1,379 @@
+{
+    "id": "solar_system_cheat_sheet",
+    "name": "Solar System",
+    "description": "Basic information about our solar system",
+    "metadata": {
+        "sourceName": "NASA",
+        "sourceUrl": "http://nssdc.gsfc.nasa.gov/planetary/factsheet/"
+    },
+    "aliases": [
+        "solar",
+        "planet",
+        "planets",
+        "solarsystem",
+        "sun",
+        "earth",
+        "mercury",
+        "mars",
+        "jupiter",
+        "saturn",
+        "uranus",
+        "neptune"
+    ],
+    "template_type": "reference",
+    "section_order": [
+        "Sun",
+        "Mercury",
+        "Venus",
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune"
+    ],
+    "sections": {
+        "Sun": [
+            {
+                "Mean distance from earth": "49,597,900 km",
+                "Mass": "1.989 x 10³⁰ kg",
+                "Temperature (core)": "1.56×10⁷ K",
+                "Volume": "1.41×10¹⁸ km³"
+            }
+        ],
+        "Mercury": [
+            {
+                "Distance from Sun (minimum / maximum)": "46,001,200 / 69,816,900 km",
+                "Mass": "3.3011×10²³ kg",
+                "Surface Temperature (mean)": "440 K",
+                "Volume": "6.083×10¹⁰ km³",
+                "Moons": []
+            }
+        ],
+        "Venus": [
+            {
+                "Distance from Sun (minimum / maximum)": "107,477,000 / 108,939,000 km",
+                "Mass": "4.8675×10²⁴ kg",
+                "Surface Temperature (mean)": "737 K",
+                "Volume": "9.2843×10¹¹ km³",
+                "Moons": []
+            }
+        ],
+        "Earth": [
+            {
+                "Distance from Sun (minimum / maximum)": "147,095,000 / 152,100,000 km",
+                "Mass": "5.97237×10²⁴ kg",
+                "Surface Temperature (mean)": "288 K",
+                "Volume": "1.08321×10¹² km³",
+                "Moons": [
+                    {
+                        "Name": "Moon"
+                    }
+                ]
+            }
+        ],
+        "Mars": [
+            {
+                "Distance from Sun (minimum / maximum)": "206,669,000 / 249,209,300 km",
+                "Mass": "6.4171×10²³ kg",
+                "Surface Temperature (mean)": "208 K",
+                "Volume": "1.6318×10¹¹ km³",
+                "Moons": [
+                    {
+                        "Name": "Deimos"
+                    },
+                    {
+                        "Name": "Phobos"
+                    }
+                ]
+            }
+        ],
+        "Jupiter": [
+            {
+                "Distance from Sun (minimum / maximum)": "740,573,600 / 816,520,800 km",
+                "Mass": "1.8986×10²⁷ kg",
+                "Surface Temperature (mean)": "163 K",
+                "Volume": "1.43128×10¹⁵ km³",
+                "Moons": [
+                    "Metis",
+                    "Adrastea",
+                    "Amalthea",
+                    "Thebe",
+                    "Io",
+                    "Europa",
+                    "Ganymede",
+                    "Callisto",
+                    "Themisto",
+                    "Leda",
+                    "Himalia",
+                    "Lysithea",
+                    "Elara",
+                    "S/2000 J11",
+                    "S/2003 J12",
+                    "Carpo",
+                    "Euporie",
+                    "S/2003 J3",
+                    "S/2003 J18",
+                    "Orthosie",
+                    "Euanthe",
+                    "Harpalyke",
+                    "Praxidike",
+                    "Thyone",
+                    "S/2003 J16",
+                    "Iocaste",
+                    "Mneme",
+                    "Hermippe",
+                    "Thelxinoe",
+                    "Helike",
+                    "Ananke",
+                    "S/2003 J15",
+                    "Eurydome",
+                    "Arche",
+                    "Herse",
+                    "Pasithee",
+                    "S/2003 J10",
+                    "Chaldene",
+                    "Isonoe",
+                    "Erinome",
+                    "Kale",
+                    "Aitne",
+                    "Taygete",
+                    "S/2003 J9",
+                    "Carme",
+                    "Sponde",
+                    "Megaclite",
+                    "S/2003 J5",
+                    "S/2003 J19",
+                    "S/2003 J23",
+                    "Kalyke",
+                    "Kore",
+                    "Pasiphae",
+                    "Eukelade",
+                    "S/2003 J4",
+                    "Sinope",
+                    "Hegemone",
+                    "Aoede",
+                    "Kallichore",
+                    "Autonoe",
+                    "Callirrhoe",
+                    "Cyllene",
+                    "S/2003 J2"
+                ]
+            }
+        ],
+        "Saturn": [
+            {
+                "Distance from Sun (minimum / maximum)": "1,353,572,956 / 1,513,325,783 km",
+                "Mass": "5.6846×10²⁶ kg",
+                "Surface Temperature (mean)": "133 K",
+                "Volume": "8.2713×10¹⁴ km³",
+                "Moons": [
+                    "Tarqeq",
+                    "Pan",
+                    "Daphnis",
+                    "Atlas",
+                    "Prometheus",
+                    "Pandora",
+                    "Epimetheus",
+                    "Janus",
+                    "Aegaeon",
+                    "Mimas",
+                    "Methone",
+                    "Anthe",
+                    "Pallene",
+                    "Enceladus",
+                    "Tethys",
+                    "Calypso",
+                    "Telesto",
+                    "Polydeuces",
+                    "Dione",
+                    "Helene",
+                    "Rhea",
+                    "Titan",
+                    "Hyperion",
+                    "Iapetus",
+                    "Kiviuq",
+                    "Ijiraq",
+                    "Phoebe",
+                    "Paaliaq",
+                    "Skathi",
+                    "Albiorix",
+                    "S/2007 S2",
+                    "Bebhionn",
+                    "Erriapo",
+                    "Siarnaq",
+                    "Skoll",
+                    "Tarvos",
+                    "Greip",
+                    "S/2004 S13",
+                    "Hyrrokkin",
+                    "Mundilfari",
+                    "S/2006 S1",
+                    "Jarnsaxa",
+                    "Narvi",
+                    "Bergelmir",
+                    "S/2004 S17",
+                    "Suttungr",
+                    "Hati",
+                    "S/2004 S12",
+                    "Bestla",
+                    "Farbauti",
+                    "Thrymr",
+                    "S/2007 S3",
+                    "Aegir",
+                    "S/2004 S7",
+                    "S/2006 S3",
+                    "Kari",
+                    "Fenrir",
+                    "Surtur",
+                    "Ymir",
+                    "Loge",
+                    "Fornjot"
+                  ]
+            }
+        ],
+        "Uranus": [
+            {
+                "Distance from Sun (minimum / maximum)": "2,748,938,461 / 3,004,419,704 km",
+                "Mass": "8.68×10²⁵ kg",
+                "Surface Temperature (mean)": "78 K",
+                "Volume": "6.833×10¹³ km³",
+                "Moons": [
+                    {
+                        "Name": "Cordelia"
+                    },
+                    {
+                        "Name": "Ophelia"
+                    },
+                    {
+                        "Name": "Bianca"
+                    },
+                    {
+                        "Name": "Cressida"
+                    },
+                    {
+                        "Name": "Desdemona"
+                    },
+                    {
+                        "Name": "Juliet"
+                    },
+                    {
+                        "Name": "Portia"
+                    },
+                    {
+                        "Name": "Rosalind"
+                    },
+                    {
+                        "Name": "Cupid"
+                    },
+                    {
+                        "Name": "Belinda"
+                    },
+                    {
+                        "Name": "Perdita"
+                    },
+                    {
+                        "Name": "Puck"
+                    },
+                    {
+                        "Name": "Mab"
+                    },
+                    {
+                        "Name": "Miranda"
+                    },
+                    {
+                        "Name": "Ariel"
+                    },
+                    {
+                        "Name": "Umbriel"
+                    },
+                    {
+                        "Name": "Titania"
+                    },
+                    {
+                        "Name": "Oberon"
+                    },
+                    {
+                        "Name": "Francisco"
+                    },
+                    {
+                        "Name": "Caliban"
+                    },
+                    {
+                        "Name": "Stephano"
+                    },
+                    {
+                        "Name": "Trinculo"
+                    },
+                    {
+                        "Name": "Sycorax"
+                    },
+                    {
+                        "Name": "Margaret"
+                    },
+                    {
+                        "Name": "Prospero"
+                    },
+                    {
+                        "Name": "Margaret"
+                    },
+                    {
+                        "Name": "Setebos"
+                    },
+                    {
+                        "Name": "Ferdinand"
+                    }
+                ]
+            }
+        ],
+        "Neptune": [
+            {
+                "Distance from Sun (minimum / maximum)": "4,452,940,833 / 4,553,946,490 km",
+                "Mass": "1.0243×10²⁶ kg",
+                "Surface Temperature (mean)": "73 K",
+                "Volume": "6.254×10¹³ km³",
+                "Moons": [
+                    {
+                        "Name": "Naiad"
+                    },
+                    {
+                        "Name": "Thalassa"
+                    },
+                    {
+                        "Name": "Despina"
+                    },
+                    {
+                        "Name": "Galatea"
+                    },
+                    {
+                        "Name": "Larissa"
+                    },
+                    {
+                        "Name": "Proteus"
+                    },
+                    {
+                        "Name": "Triton"
+                    },
+                    {
+                        "Name": "Nereid"
+                    },
+                    {
+                        "Name": "Halimede"
+                    },
+                    {
+                        "Name": "Sao"
+                    },
+                    {
+                        "Name": "Laomedeia"
+                    },
+                    {
+                        "Name": "Psamathe"
+                    },
+                    {
+                        "Name": "Neso"
+                    }
+                ]
+            }
+        ]
+    }
+}

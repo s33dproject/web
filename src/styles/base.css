@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+body.landing {
+  background: var(--bg);
+}
+
+.loading {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.console-loading {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  letter-spacing: 0.02em;
+}
+
+.console-loading::after {
+  content: " _";
+  animation: console-blink 1s step-end infinite;
+}
+
+@keyframes console-blink {
+  50% { opacity: 0; }
+}
+
+.blink-cursor {
+  animation: console-blink 1s step-end infinite;
+}
+
+.error {
+  color: var(--white);
+  padding: 1rem;
+  background: var(--black);
+  border-radius: 8px;
+  border: 1px solid var(--gray);
+}
