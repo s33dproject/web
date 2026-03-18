@@ -63,16 +63,87 @@ html.run-page-html body.run-page {
 
 .variant-controls {
   flex-shrink: 0;
-  padding: 0.5rem 2rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0;
+  border-bottom: var(--divider);
   background: var(--card-bg);
 }
 
-.variant-controls-inner {
+.run-nav-section {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-bottom: var(--divider);
+}
+
+.run-nav-pagination {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.run-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.run-nav-btn:hover {
+  color: var(--white);
+  background: var(--gray);
+}
+
+.run-nav-btn-disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.run-nav-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 12rem;
+  justify-content: center;
+}
+
+.run-nav-prev-name,
+.run-nav-next-name {
+  font-size: 0.8rem;
+  color: var(--muted);
+  max-width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.run-nav-sep {
+  font-size: 0.65rem;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.run-nav-counter {
+  font-size: 0.7rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.run-controls-section {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  padding: 0.5rem 2rem;
 }
 
 .params-controls {
@@ -145,6 +216,28 @@ html.run-page-html body.run-page {
   margin-left: auto;
 }
 
+.run-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.run-back:hover {
+  color: var(--white);
+  background: var(--gray);
+}
+
 .btn {
   font-family: inherit;
   font-size: 0.8rem;
@@ -206,10 +299,32 @@ html.run-page-html body.run-page {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   color: var(--muted);
   font-size: 0.9rem;
+  background: var(--black);
+}
+
+.sketch-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--border);
+  border-top-color: var(--fg);
+  border-radius: 50%;
+  animation: sketch-loading-spin 0.8s linear infinite;
+}
+
+@keyframes sketch-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sketch-loading-text {
+  font-family: var(--font-primary);
 }
 
 .sketch-error {
@@ -233,7 +348,7 @@ html.run-page-html body.run-page {
 
 .gallery-panel {
   flex-shrink: 0;
-  border-top: 1px solid var(--border);
+  border-top: var(--divider);
   padding: 1.25rem 2rem;
   margin: 0;
   overflow-x: auto;

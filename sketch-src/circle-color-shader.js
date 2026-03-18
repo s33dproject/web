@@ -68,8 +68,8 @@ const sketch = ({ gl }) => {
     uniforms: {
       time: ({ time }) => time,
       aspect: ({ width, height }) => width / height,
-      speed: () => runtimeParams.speed ?? 0.1,
-      radius: () => runtimeParams.radius ?? 0.25
+      speed: () => (runtimeParams.speed != null ? runtimeParams.speed : 0.1),
+      radius: () => (runtimeParams.radius != null ? runtimeParams.radius : 0.25)
     }
   });
 };

@@ -17,8 +17,8 @@ const settings = {
   scaleToView: true,
   // Make the loop animated
   animate: true,
-  // Get a WebGL canvas rather than 2D
-  context: 'webgl',
+  // Get a WebGL canvas rather than 2D (WebGL2 required since Three.js r163)
+  context: 'webgl2',
   // Loop itme in seconds
   duration: 5,
   // Loop framerate

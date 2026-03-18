@@ -36,7 +36,7 @@ const sketch = ({ gl }) => {
     // Specify additional uniforms to pass down to the shaders
     uniforms: {
       time: ({ time }) => time,
-      speed: () => runtimeParams.speed ?? 1
+      speed: () => (runtimeParams.speed != null ? runtimeParams.speed : 1)
     }
   });
 };

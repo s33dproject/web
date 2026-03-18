@@ -7,7 +7,7 @@ const canvasSketch = require('canvas-sketch');
 const load = require('load-asset');
 
 canvasSketch(async ({ update }) => {
-  const image = await load('assets/baboon.jpg');
+  const image = await load('/assets/images/baboon.jpg');
 
   // Update our sketch with new settings
   update({

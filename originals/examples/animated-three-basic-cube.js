@@ -5,17 +5,13 @@
 
 const canvasSketch = require('canvas-sketch');
 
-// Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require('three');
-
-// Include any additional ThreeJS examples below
-require('three/examples/js/controls/OrbitControls');
 
 const settings = {
   // Make the loop animated
   animate: true,
-  // Get a WebGL canvas rather than 2D
-  context: 'webgl',
+  // Get a WebGL canvas rather than 2D (WebGL2 required since Three.js r163)
+  context: 'webgl2',
   // Turn on MSAA
   attributes: { antialias: true }
 };
@@ -33,9 +29,6 @@ const sketch = ({ context }) => {
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100);
   camera.position.set(2, 2, -4);
   camera.lookAt(new THREE.Vector3());
-
-  // Setup camera controller
-  const controls = new THREE.OrbitControls(camera, context.canvas);
 
   // Setup your scene
   const scene = new THREE.Scene();
@@ -70,7 +63,11 @@ const sketch = ({ context }) => {
     // And render events here
     render ({ time, deltaTime }) {
       mesh.rotation.y = time * (10 * Math.PI / 180);
-      controls.update();
+      camera.position.x = Math.sin(time * 0.3) * 4;
+      camera.position.z = Math.cos(time * 0.3) * 4;
+      camera.position.y = 2;
+      camera.lookAt(0, 0, 0);
+      camera.updateMatrixWorld();
       renderer.render(scene, camera);
     },
     // Dispose of WebGL context (optional)

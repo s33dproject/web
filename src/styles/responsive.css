@@ -98,11 +98,12 @@
   }
 
   /* Run */
-  .variant-controls {
-    padding: 0.5rem 1.25rem;
+  .run-nav-section {
+    padding: 0.75rem 1.25rem;
   }
 
-  .variant-controls-inner {
+  .run-controls-section {
+    padding: 0.5rem 1.25rem;
     gap: 0.75rem;
   }
 
@@ -339,13 +340,25 @@
     padding-top: 4rem;
   }
 
-  .variant-controls {
+  .run-nav-section {
     padding: 0.5rem 1rem;
   }
 
-  .variant-controls-inner {
+  .run-nav-info {
+    min-width: 8rem;
+    gap: 0.35rem;
+  }
+
+  .run-nav-prev-name,
+  .run-nav-next-name {
+    max-width: 4rem;
+    font-size: 0.75rem;
+  }
+
+  .run-controls-section {
     flex-direction: column;
     align-items: stretch;
+    padding: 0.5rem 1rem;
     gap: 0.5rem;
   }
 
@@ -370,7 +383,6 @@
   }
 
   .variant-controls-actions {
-    margin-left: 0;
     justify-content: flex-end;
     flex-wrap: wrap;
   }

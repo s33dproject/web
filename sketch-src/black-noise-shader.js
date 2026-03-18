@@ -42,9 +42,9 @@ const sketch = ({ gl }) => {
     frag,
     // Specify additional uniforms to pass down to the shaders
     uniforms: {
-      time: ({ time }) => time * (runtimeParams.speed ?? 1),
+      time: ({ time }) => time * (runtimeParams.speed != null ? runtimeParams.speed : 1),
       aspect: ({ width, height }) => width / height,
-      scale: () => runtimeParams.scale ?? 10
+      scale: () => (runtimeParams.scale != null ? runtimeParams.scale : 10)
     }
   });
 };

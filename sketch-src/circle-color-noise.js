@@ -48,7 +48,7 @@ const sketch = ({ gl }) => {
     uniforms: {
       time: ({ time }) => time,
       aspect: ({ width, height }) => width / height,
-      speed: () => runtimeParams.speed ?? 1
+      speed: () => (runtimeParams.speed != null ? runtimeParams.speed : 1)
     }
   });
 };

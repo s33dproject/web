@@ -29,6 +29,7 @@ export default function Run() {
   const [sketchParams, setSketchParams] = useState<SketchParam[]>([]);
   const [paramValues, setParamValues] = useState<Record<string, number | string>>({});
   const paramValuesRef = useRef<Record<string, number | string>>({});
+  const [sketchList, setSketchList] = useState<{ type: string; id: string }[]>([]);
 
   const isValidType = type === "2019-seeds" || type === "original";
 
@@ -36,6 +37,12 @@ export default function Run() {
     paramValuesRef.current = paramValues;
   }, [paramValues]);
   const sketchName = name ? decodeURIComponent(name) : "";
+
+  // Clear variants when switching to a different sketch
+  useEffect(() => {
+    setVariants([]);
+    setModalVariant(null);
+  }, [type, sketchName]);
 
   useEffect(() => {
     document.documentElement.classList.add("run-page-html");
@@ -66,18 +73,31 @@ export default function Run() {
     return () => ro.disconnect();
   }, [loading]);
 
-  // Fetch sketches metadata for params
+  // Fetch sketches metadata for params and build list for prev/next
   useEffect(() => {
     if (!isValidType || !sketchName) return;
     fetch("/api/sketches")
       .then((r) => r.json())
       .then((data) => {
-        const list = [...(data["2019-seeds"] || []), ...(data.originals || [])];
+        const seeds = (data["2019-seeds"] || []).map((s: { id: string }) => ({
+          type: "2019-seeds",
+          id: s.id,
+        }));
+        const originals = (data.originals || []).map((s: { id: string }) => ({
+          type: "original",
+          id: s.id,
+        }));
+        const list = [...seeds, ...originals];
+        setSketchList(list);
+
         const sketch = list.find(
+          (s: { id: string; type: string }) => s.id === sketchName && s.type === type
+        );
+        const meta = (data["2019-seeds"] || []).concat(data.originals || []).find(
           (s: { id: string; type?: string }) =>
             s.id === sketchName && (s.type ?? "2019-seeds") === type
         );
-        const params = sketch?.params || [];
+        const params = meta?.params || [];
         setSketchParams(params);
         const initial: Record<string, number | string> = {};
         params.forEach((p: SketchParam) => {
@@ -108,31 +128,50 @@ export default function Run() {
       return;
     }
 
+    setLoading(true);
+    setError(null);
+
+    const iframe = iframeRef.current;
+    if (iframe) {
+      iframe.onload = null;
+    }
+
     let cancelled = false;
+    let loadTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    const controller = new AbortController();
 
     async function start() {
+      let fetchTimeout: ReturnType<typeof setTimeout> | null = setTimeout(
+        () => controller.abort(),
+        60000
+      );
       try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 60000);
         const res = await fetch(`/api/run/${type}/${encodeURIComponent(sketchName)}`, {
           method: "POST",
           signal: controller.signal,
         });
-        clearTimeout(timeout);
+        if (fetchTimeout) {
+          clearTimeout(fetchTimeout);
+          fetchTimeout = null;
+        }
         const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(data.error || "Error starting");
         if (cancelled) return;
+        if (!res.ok) throw new Error(data.error || "Error starting");
 
-        const iframe = iframeRef.current;
-        if (iframe) {
-          iframe.src = "/sketch/?t=" + Date.now();
-          iframe.onload = () => {
+        const iframeEl = iframeRef.current;
+        if (iframeEl && !cancelled) {
+          const onLoad = () => {
+            if (cancelled) return;
+            if (loadTimeoutId) {
+              clearTimeout(loadTimeoutId);
+              loadTimeoutId = null;
+            }
             setLoading(false);
             setError(null);
             const params = paramValuesRef.current;
             if (Object.keys(params).length > 0) {
               try {
-                iframe.contentWindow?.postMessage(
+                iframeEl.contentWindow?.postMessage(
                   { type: "s33d-params", params },
                   "*"
                 );
@@ -141,9 +180,27 @@ export default function Run() {
               }
             }
           };
+
+          loadTimeoutId = setTimeout(() => {
+            loadTimeoutId = null;
+            if (cancelled) return;
+            setLoading(false);
+            setError("Sketch took too long to load. Try again or check the terminal for errors.");
+          }, 25000);
+
+          iframeEl.onload = onLoad;
+          iframeEl.src = `/sketch/?t=${Date.now()}`;
+        } else {
+          setLoading(false);
         }
       } catch (err) {
+        if (fetchTimeout) {
+          clearTimeout(fetchTimeout);
+        }
         if (cancelled) return;
+        if (loadTimeoutId) {
+          clearTimeout(loadTimeoutId);
+        }
         const msg =
           (err as Error).name === "AbortError"
             ? "Server took too long. Is canvas-sketch installed?"
@@ -156,6 +213,8 @@ export default function Run() {
     start();
     return () => {
       cancelled = true;
+      controller.abort();
+      if (loadTimeoutId) clearTimeout(loadTimeoutId);
     };
   }, [type, sketchName, isValidType]);
 
@@ -164,8 +223,12 @@ export default function Run() {
     if (!iframe) return;
     setLoading(true);
     setError(null);
-    iframe.src = "/sketch/?t=" + Date.now();
+    const loadTimeout = setTimeout(() => {
+      setLoading(false);
+      setError("Regenerate timed out. Try again.");
+    }, 25000);
     iframe.onload = () => {
+      clearTimeout(loadTimeout);
       setLoading(false);
       const params = paramValuesRef.current;
       if (Object.keys(params).length > 0) {
@@ -179,6 +242,7 @@ export default function Run() {
         }
       }
     };
+    iframe.src = "/sketch/?t=" + Date.now();
   }, []);
 
   const handleAddVariant = useCallback(() => {
@@ -282,22 +346,76 @@ export default function Run() {
     return null;
   }
 
+  const currentIndex = sketchList.findIndex(
+    (s) => s.id === sketchName && s.type === type
+  );
+  const prevSketch = currentIndex > 0 ? sketchList[currentIndex - 1] : null;
+  const nextSketch =
+    currentIndex >= 0 && currentIndex < sketchList.length - 1
+      ? sketchList[currentIndex + 1]
+      : null;
+
   return (
     <>
       <div className="variant-controls">
-        <div className="variant-controls-inner">
-          <Link to="/sketches" className="btn btn-secondary run-back" title="Back to sketches">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+        <div className="run-nav-section">
+          <div className="run-nav-pagination">
+            {prevSketch ? (
+              <Link
+                to={`/run/${prevSketch.type}/${encodeURIComponent(prevSketch.id)}`}
+                className="run-nav-btn"
+                title={`Previous: ${formatName(prevSketch.id)}`}
+                aria-label="Previous sketch"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </Link>
+            ) : (
+              <span className="run-nav-btn run-nav-btn-disabled" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </span>
+            )}
+            <div className="run-nav-info" aria-live="polite">
+              <span className="run-nav-prev-name">
+                {prevSketch ? formatName(prevSketch.id) : "—"}
+              </span>
+              <span className="run-nav-sep" aria-hidden="true">·</span>
+              <span className="run-nav-counter">
+                {currentIndex >= 0 ? `${currentIndex + 1} / ${sketchList.length}` : "—"}
+              </span>
+              <span className="run-nav-sep" aria-hidden="true">·</span>
+              <span className="run-nav-next-name">
+                {nextSketch ? formatName(nextSketch.id) : "—"}
+              </span>
+            </div>
+            {nextSketch ? (
+              <Link
+                to={`/run/${nextSketch.type}/${encodeURIComponent(nextSketch.id)}`}
+                className="run-nav-btn"
+                title={`Next: ${formatName(nextSketch.id)}`}
+                aria-label="Next sketch"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </Link>
+            ) : (
+              <span className="run-nav-btn run-nav-btn-disabled" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="run-controls-section">
+          <Link to="/sketches" className="run-back" title="Back to sketches" aria-label="Back to sketches">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="15 18 9 12 15 6" />
             </svg>
-            Back
           </Link>
           <div className="params-controls">
             {sketchParams.map((p) => (
@@ -334,19 +452,11 @@ export default function Run() {
           </div>
           <div className="variant-controls-actions">
             {sketchParams.length > 0 && (
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleReset}
-              >
+              <button type="button" className="btn btn-secondary" onClick={handleReset}>
                 Reset
               </button>
             )}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleRegenerate}
-            >
+            <button type="button" className="btn btn-secondary" onClick={handleRegenerate}>
               Regenerate
             </button>
             <button
@@ -367,7 +477,10 @@ export default function Run() {
           style={{ minHeight: "54vh", height: "54vh" }}
         >
           {loading && (
-            <div className="sketch-loading console-loading">initializing</div>
+            <div className="sketch-loading" role="status" aria-live="polite">
+              <span className="sketch-loading-spinner" aria-hidden="true" />
+              <span className="sketch-loading-text console-loading">loading sketch</span>
+            </div>
           )}
           <iframe
             ref={iframeRef}

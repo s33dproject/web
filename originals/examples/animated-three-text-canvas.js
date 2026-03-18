@@ -1,9 +1,6 @@
 /**
  * A WebGL example of a basic rotating cube with text, using ThreeJS.
- *
- * This is similar to canvas-in-canvas.js example, in that it uses
- * a second sketch to hold the canvas. You may or may not consider
- * this to be overkill, depending on your application...
+ * Uses a 2D canvas as texture for the cube faces.
  *
  * @author Matt DesLauriers (@mattdesl)
  */
@@ -11,58 +8,31 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
 
-// Import THREE and assign it to global scope
 global.THREE = require('three');
 
-// Now import any ThreeJS example utilities
-require('three/examples/js/controls/OrbitControls');
-
-// A sketch that simply renders the passed 'text' setting
-// into the center of the canvas
-const textSketch = () => {
-  return ({ context, width, height, settings }) => {
-    const { text } = settings;
-
-    // Clear canvas
-    context.clearRect(0, 0, width, height);
-
-    // Draw background
-    context.fillStyle = 'black';
-    context.fillRect(0, 0, width, height);
-
-    // Draw text
-    const fontSize = 80;
-    context.fillStyle = 'white';
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    context.font = `${fontSize}px monospace`;
-    context.fillText(text || '', width / 2, height / 2);
-  };
-};
-
-// Setup our sketch
 const settings = {
-  // Make the loop animated
   animate: true,
-  // Get a WebGL canvas rather than 2D
-  context: 'webgl',
-  // Turn on MSAA
+  context: 'webgl2',
   attributes: { antialias: true }
 };
 
-const sketch = async ({ context }) => {
-  // Wait for text sketch to load up
-  const textManager = await canvasSketch(textSketch, {
-    dimensions: [ 512, 512 ],
-    scaleToView: true,
-    // Do not attach keyboard shortcuts
-    hotkeys: false,
-    // Do not attach to parent
-    parent: false
-  });
+const sketch = ({ context }) => {
+  // Create a 2D canvas for the text texture (simpler than nested canvas-sketch)
+  const textCanvas = document.createElement('canvas');
+  textCanvas.width = 512;
+  textCanvas.height = 512;
+  const textCtx = textCanvas.getContext('2d');
 
-  // Get the other canvas
-  const otherCanvas = textManager.props.canvas;
+  const drawText = (text) => {
+    textCtx.clearRect(0, 0, 512, 512);
+    textCtx.fillStyle = 'black';
+    textCtx.fillRect(0, 0, 512, 512);
+    textCtx.fillStyle = 'white';
+    textCtx.textAlign = 'center';
+    textCtx.textBaseline = 'middle';
+    textCtx.font = '80px monospace';
+    textCtx.fillText(text || '', 256, 256);
+  };
 
   // Create a renderer
   const renderer = new THREE.WebGLRenderer({
@@ -77,15 +47,15 @@ const sketch = async ({ context }) => {
   camera.position.set(2, 2, -4);
   camera.lookAt(new THREE.Vector3());
 
-  // set up some orbit controls
-  const controls = new THREE.OrbitControls(camera, context.canvas);
-
   // setup your scene
   const scene = new THREE.Scene();
 
-  const map = new THREE.Texture(otherCanvas);
+  const map = new THREE.CanvasTexture(textCanvas);
+  map.minFilter = THREE.LinearFilter;
+  map.magFilter = THREE.LinearFilter;
+  map.generateMipmaps = false;
 
-  // A cube with basic mamterial
+  // A cube with basic material
   const mesh = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
     new THREE.MeshBasicMaterial({
@@ -94,27 +64,17 @@ const sketch = async ({ context }) => {
   );
   scene.add(mesh);
 
-  // Update the text with a new string
-  const setText = (text) => {
-    // Pass in new settings, this triggers a re-render
-    textManager.update({
-      text
-    });
-    // Make sure WebGL gets the new texture
-    map.needsUpdate = true;
-  };
-
   // Set some random characters
   const remix = () => {
     const maxChars = 6;
     const chars = Array.from(new Array(maxChars)).map(() => {
       return String.fromCharCode(random.rangeFloor(33, 127));
     }).join('');
-    setText(chars);
+    drawText(chars);
   };
 
   remix();
-  setInterval(remix, 100);
+  const remixInterval = setInterval(remix, 100);
 
   // draw each frame
   return {
@@ -128,8 +88,17 @@ const sketch = async ({ context }) => {
     // And render events here
     render ({ time, deltaTime }) {
       mesh.rotation.y += deltaTime * (5 * Math.PI / 180);
-      controls.update();
+      camera.position.x = Math.sin(time * 0.3) * 4;
+      camera.position.z = Math.cos(time * 0.3) * 4;
+      camera.position.y = 2;
+      camera.lookAt(0, 0, 0);
+      camera.updateMatrixWorld();
+      map.needsUpdate = true;
       renderer.render(scene, camera);
+    },
+    unload () {
+      clearInterval(remixInterval);
+      renderer.dispose();
     }
   };
 };

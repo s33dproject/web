@@ -38,7 +38,7 @@
   max-width: 400px;
   margin: 0 auto 1.5rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--divider);
 }
 
 .gallery-search-wrap:focus-within {

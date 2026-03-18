@@ -1,5 +1,5 @@
-global.THREE = require("three");
-const { OrbitControls } = require("three/examples/jsm/controls/OrbitControls.js");
+const THREE = require("three");
+global.THREE = THREE;
 
 const canvasSketch = require("canvas-sketch");
 
@@ -10,27 +10,20 @@ const settings = {
   scaleToView: true,
   pixelsPerInch: 300,
   orientation: "landscape",
-  // Make the loop animated
   animate: true,
-  // Get a WebGL canvas rather than 2D
   context: "webgl2"
 };
 
 const sketch = ({ context }) => {
-  // Create a renderer
   const renderer = new THREE.WebGLRenderer({
     canvas: context.canvas
   });
 
-  // WebGL background color
   renderer.setClearColor("#000", 1);
 
-  // Setup a camera
   const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 100);
   camera.position.set(0, 0, -4);
   camera.lookAt(new THREE.Vector3());
-
-  const controls = new OrbitControls(camera, context.canvas);
 
   // Setup your scene
   const scene = new THREE.Scene();
@@ -38,10 +31,10 @@ const sketch = ({ context }) => {
   // Setup a geometry
   const geometry = new THREE.SphereGeometry(1, 32, 16);
   const loader = new THREE.TextureLoader();
-  const earth = new loader.load("/assets/images/earth.jpg");
-  const mars = new loader.load("/assets/images/mars.jpg");
-  const moon = new loader.load("/assets/images/moon.jpg");
-  const sun = new loader.load("/assets/images/sun.jpg");
+  const earth = loader.load("/assets/images/earth.jpg");
+  const mars = loader.load("/assets/images/mars.jpg");
+  const moon = loader.load("/assets/images/moon.jpg");
+  const sun = loader.load("/assets/images/sun.jpg");
 
   // Setup a bodies material
   const bodiesGroup = new THREE.Group();
@@ -127,17 +120,18 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render({ time }) {
-      const speed = runtimeParams.speed ?? 1;
+      const speed = (runtimeParams.speed != null ? runtimeParams.speed : 1);
       earthMesh.rotation.y = time * 0.15 * speed;
       moonMesh.rotation.y = time * 0.075 * speed;
-      //bodiesGroup.rotation.y = time * 0.1;
 
-      controls.update();
+      camera.position.x = Math.sin(time * 0.2 * speed) * 2;
+      camera.position.z = -4 + Math.cos(time * 0.2 * speed) * 2;
+      camera.lookAt(0, 0, 0);
+      camera.updateMatrixWorld();
+
       renderer.render(scene, camera);
     },
-    // Dispose of events & renderer for cleaner hot-reloading
     unload() {
-      controls.dispose();
       renderer.dispose();
     }
   };

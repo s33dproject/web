@@ -3,7 +3,7 @@ const canvasSketch = require('canvas-sketch')
 // const palettes = require('nice-color-palettes')
 
 const settings = {
-  dimensions: [ 576, 1024 ],
+  dimensions: [ 800, 800 ],
   scaleToView: true,
   animate: true,
 }
@@ -17,7 +17,7 @@ const sketch = ({ width, height }) => {
     context.shadowBlur = 16
     context.lineWidth = 2
     const ms = time * 1000
-    context.globalAlpha = runtimeParams.opacity ?? 0.77
+    context.globalAlpha = (runtimeParams.opacity != null ? runtimeParams.opacity : 0.77)
     context.strokeStyle = 'rgba(0,0,0,0.8)'
     context.fillRect(0, 0, width, height)
     context.globalAlpha = 1

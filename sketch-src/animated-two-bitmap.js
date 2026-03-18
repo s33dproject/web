@@ -19,7 +19,7 @@ const sketch = async ({ canvas }) => {
 
   // Generate the image and wait for load to finish before
   // moving forward with rendering.
-  const image = await load("../assets/images/mam.jpg");
+  const image = await load("/assets/images/mam.jpg");
 
   // Get the dimensions of the baboon image
   const imageWidth = image.width;
@@ -66,10 +66,10 @@ const sketch = async ({ canvas }) => {
       // Position scene to be at the center of the canvas
       two.scene.translation.set(two.width / 2, two.height / 2);
 
-      two.scene.scale = (two.width / imageWidth) * (runtimeParams.scale ?? 1);
+      two.scene.scale = (two.width / imageWidth) * (runtimeParams.scale != null ? runtimeParams.scale : 1);
     },
     render({ time }) {
-      two.scene.scale = (two.width / imageWidth) * (runtimeParams.scale ?? 1);
+      two.scene.scale = (two.width / imageWidth) * (runtimeParams.scale != null ? runtimeParams.scale : 1);
       const speed = (1 + Math.sin(time * 5)) / 2;
 
       for (let i = 0; i < amount; i++) {

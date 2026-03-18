@@ -18,7 +18,7 @@ const sketch = async ({ canvas }) => {
 
   // Generate the image and wait for load to finish before
   // moving forward with rendering.
-  const image = await load('assets/baboon.jpg');
+  const image = await load('/assets/images/baboon.jpg');
 
   // Get the dimensions of the baboon image
   const imageWidth = image.width;

@@ -72,11 +72,15 @@ function getAllSketches() {
 }
 
 const ORIGINALS_EXCLUDED = new Set([
-  "headless-gl.js",
-  "shader.js",
+  // Directories (whole folder skipped)
   "util",
+  "experimental", // tests/experiments, unstable, many require ./util/ with wrong paths
+  // Files: utilities, tests, templates, non-pieces
+  "headless-gl.js", // Node.js headless GL, not for browser
+  "shader.js", // module export (createShader), not a sketch
   "primitive-polyline.js",
   "polyline-util.js",
+  "canvas-react.js", // React component example, uses JSX
 ]);
 
 const PACKAGE_TO_TECH = {
@@ -184,15 +188,45 @@ function killCanvasSketch() {
     }
     const proc = canvasSketchProcess;
     canvasSketchProcess = null;
+    currentSketchName = null;
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
-      setTimeout(resolve, 600);
+      setTimeout(resolve, 1200);
     };
     proc.once("exit", finish);
     proc.kill("SIGTERM");
-    setTimeout(finish, 2500);
+    setTimeout(finish, 2000);
+  });
+}
+
+function waitForPortFree(port, timeout = 5000) {
+  const http = require("http");
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+    const check = () => {
+      if (Date.now() - start > timeout) {
+        resolve();
+        return;
+      }
+      const req = http.get(`http://127.0.0.1:${port}`, () => {
+        req.destroy();
+        setTimeout(check, 200);
+      });
+      req.on("error", (err) => {
+        if (err.code === "ECONNREFUSED" || err.code === "ECONNRESET") {
+          resolve();
+        } else {
+          setTimeout(check, 200);
+        }
+      });
+      req.setTimeout(500, () => {
+        req.destroy();
+        setTimeout(check, 200);
+      });
+    };
+    setTimeout(check, 300);
   });
 }
 
@@ -205,7 +239,7 @@ function waitForPort(port, timeout = 15000) {
         reject(new Error("Timeout waiting for canvas-sketch server"));
         return;
       }
-      const req = http.get(`http://localhost:${port}`, () => resolve());
+      const req = http.get(`http://127.0.0.1:${port}`, () => resolve());
       req.on("error", () => setTimeout(check, 250));
     };
     setTimeout(check, 400);
@@ -258,10 +292,11 @@ app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use(
   "/sketch",
   createProxyMiddleware({
-    target: `http://localhost:${SKETCH_PORT}`,
+    target: `http://127.0.0.1:${SKETCH_PORT}`,
     pathRewrite: { "^/sketch": "" },
     changeOrigin: true,
     ws: true,
+    secure: false,
   })
 );
 
@@ -309,6 +344,7 @@ app.post(/^\/api\/run\/(2019-seeds|original)\/(.+)$/, async (req, res) => {
   }
 
   await killCanvasSketch();
+  await waitForPortFree(SKETCH_PORT);
 
   const relPath = path.relative(__dirname, sketchPath);
   console.log("Ejecutando sketch:", relPath);
@@ -320,17 +356,20 @@ app.post(/^\/api\/run\/(2019-seeds|original)\/(.+)$/, async (req, res) => {
     shell: true,
   });
 
-  canvasSketchProcess.stdout.on("data", (d) => process.stdout.write(d.toString()));
-  canvasSketchProcess.stderr.on("data", (d) => process.stderr.write(d.toString()));
-  canvasSketchProcess.on("error", (err) => {
+  const proc = canvasSketchProcess;
+  proc.stdout.on("data", (d) => process.stdout.write(d.toString()));
+  proc.stderr.on("data", (d) => process.stderr.write(d.toString()));
+  proc.on("error", (err) => {
     console.error("canvas-sketch error:", err);
   });
-  canvasSketchProcess.on("exit", (code) => {
+  proc.on("exit", (code) => {
+    if (canvasSketchProcess === proc) {
+      canvasSketchProcess = null;
+      currentSketchName = null;
+    }
     if (code !== null && code !== 0) {
       console.log("canvas-sketch exited with code", code);
     }
-    canvasSketchProcess = null;
-    currentSketchName = null;
   });
   currentSketchName = runId;
 
