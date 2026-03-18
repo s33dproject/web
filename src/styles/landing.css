@@ -101,13 +101,6 @@
   background: var(--fg);
 }
 
-@media (max-width: 768px) {
-  .landing-bg-controls-pieces {
-    grid-template-columns: auto 1fr 1fr;
-    gap: 0.5rem;
-  }
-}
-
 .landing-header {
   display: flex;
   align-items: center;
@@ -322,8 +315,3 @@ body.nav-menu-open header {
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .landing-columns {
-    grid-template-columns: 1fr;
-  }
-}

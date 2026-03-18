@@ -2,6 +2,10 @@
   --font-primary: "JetBrains Mono", "SF Mono", "Fira Code", "Consolas", monospace;
   --font-secondary: "Doto", "JetBrains Mono", monospace;
   --black: #000000;
+  /* Responsive breakpoints */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
   --gray: #9C9C9C;
   --white: #FFFFFF;
   --bg: var(--black);
