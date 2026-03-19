@@ -45,9 +45,27 @@
   }
 
   .landing-bg-controls-pieces {
-    grid-template-columns: auto 1fr 1fr;
-    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0 1.25rem;
+  }
+
+  .landing-bg-controls {
+    flex-shrink: 0;
+  }
+
+  .landing-bg-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .landing-bg-piece {
+    flex: 0 0 auto;
   }
 
   .landing-columns {
@@ -252,13 +270,38 @@
   }
 
   .landing-bg-controls-pieces {
-    grid-template-columns: auto 1fr 1fr;
-    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0 1rem;
+  }
+
+  .landing-bg-controls {
+    flex-shrink: 0;
+  }
+
+  .landing-bg-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .landing-bg-piece {
     font-size: 0.7rem;
+    flex: 0 0 auto;
+    padding: 0.2rem 0.4rem;
+    white-space: nowrap;
+  }
+
+  .landing-bg-piece-full {
+    display: none;
+  }
+
+  .landing-bg-piece-short {
+    display: inline;
   }
 
   .landing-bg-btn {
@@ -449,6 +492,7 @@
   .nav-menu-panel {
     padding: 2.5rem 1rem;
     min-height: 50vh;
+    align-items: flex-start;
   }
 
   .nav-menu-close {
@@ -459,15 +503,17 @@
   .nav-menu-columns {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+    justify-items: start;
   }
 
   .nav-menu-col {
     padding: 0;
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
   }
 
   .nav-menu-tree {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .nav-menu-item {

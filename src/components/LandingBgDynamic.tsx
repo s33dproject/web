@@ -516,7 +516,10 @@ export default function LandingBgDynamic() {
               className={`landing-bg-piece ${i === currentIndex ? "active" : ""}`}
               data-index={i}
             >
-              {name}
+              <span className="landing-bg-piece-full">{name}</span>
+              <span className="landing-bg-piece-short" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
             </span>
           ))}
           </div>
