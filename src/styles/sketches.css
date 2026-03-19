@@ -31,6 +31,37 @@
   padding-top: 5.5rem;
 }
 
+.sketch-filter-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.sketch-filter-tab {
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.sketch-filter-tab:hover {
+  border-color: var(--gray);
+  color: var(--fg);
+}
+
+.sketch-filter-tab.active {
+  border-color: var(--gray);
+  color: var(--fg);
+  background: rgba(156, 156, 156, 0.08);
+}
+
 .sketch-search-wrap {
   display: flex;
   align-items: center;

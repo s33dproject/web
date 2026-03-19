@@ -8,11 +8,14 @@ interface Sketch {
   tech?: string[];
 }
 
+type TypeFilter = "all" | "2026" | "2019-seeds" | "original";
+
 export default function Sketches() {
   const navigate = useNavigate();
   const [sketches, setSketches] = useState<Sketch[]>([]);
   const [filtered, setFiltered] = useState<Sketch[]>([]);
   const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,7 +36,7 @@ export default function Sketches() {
           const msg = (data as { error?: string }).error || "Error loading sketches";
           throw new Error(msg);
         }
-        const seeds = (data["2019-seeds"] || data.experimental || []).map((s: Sketch) => ({
+        const seeds2019 = (data["2019-seeds"] || data.experimental || []).map((s: Sketch) => ({
           ...s,
           type: "2019-seeds",
         }));
@@ -41,7 +44,12 @@ export default function Sketches() {
           ...s,
           type: "original",
         }));
-        const all = [...seeds, ...originals];
+        const seeds2026 = (data["2026"] || []).map((s: Sketch) => ({
+          ...s,
+          type: "2026",
+        }));
+        // 2026 primero, luego 2019, luego originals
+        const all = [...seeds2026, ...seeds2019, ...originals];
         setSketches(all);
         setFiltered(all);
       } catch (err) {
@@ -71,16 +79,20 @@ export default function Sketches() {
 
   useEffect(() => {
     const q = search.trim().toLowerCase();
+    let base = sketches;
+    if (typeFilter !== "all") {
+      base = sketches.filter((s) => s.type === typeFilter);
+    }
     const next = q
-      ? sketches.filter(
+      ? base.filter(
           (s) =>
             s.name.toLowerCase().includes(q) ||
             s.id.toLowerCase().includes(q) ||
             (s.tech || []).some((t) => t.toLowerCase().includes(q))
         )
-      : sketches;
+      : base;
     setFiltered(next);
-  }, [search, sketches]);
+  }, [search, sketches, typeFilter]);
 
   useEffect(() => {
     const el = document.getElementById("sketch-count");
@@ -100,7 +112,8 @@ export default function Sketches() {
     }
   }
 
-  const getTypeTag = (type: string) => (type === "original" ? "original" : "2019");
+  const getTypeTag = (type: string) =>
+    type === "original" ? "original" : type === "2026" ? "2026" : "2019";
 
   return (
     <div className="sketches-main">
@@ -108,6 +121,36 @@ export default function Sketches() {
       {error && <div className="error">{error}</div>}
       {!loading && !error && (
         <>
+          <div className="sketch-filter-tabs">
+            <button
+              type="button"
+              className={`sketch-filter-tab ${typeFilter === "all" ? "active" : ""}`}
+              onClick={() => setTypeFilter("all")}
+            >
+              todo
+            </button>
+            <button
+              type="button"
+              className={`sketch-filter-tab ${typeFilter === "2026" ? "active" : ""}`}
+              onClick={() => setTypeFilter("2026")}
+            >
+              2026
+            </button>
+            <button
+              type="button"
+              className={`sketch-filter-tab ${typeFilter === "2019-seeds" ? "active" : ""}`}
+              onClick={() => setTypeFilter("2019-seeds")}
+            >
+              2019
+            </button>
+            <button
+              type="button"
+              className={`sketch-filter-tab ${typeFilter === "original" ? "active" : ""}`}
+              onClick={() => setTypeFilter("original")}
+            >
+              originals
+            </button>
+          </div>
           <div className="sketch-search-wrap">
             <input
               type="text"

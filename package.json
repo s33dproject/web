@@ -11,7 +11,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "sketch": "canvas-sketch",
-    "sketch:open": "canvas-sketch sketch-src/random-circles.js --open",
+    "sketch:open": "canvas-sketch sketches/2019/random-circles.js --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

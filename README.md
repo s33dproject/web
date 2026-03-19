@@ -43,7 +43,7 @@ npm run dev
 
 En modo dev se habilitan además:
 
-- **Sketches** — lista en dos secciones: **2019 seeds** (versiones propias) y **Originals** (versiones originales); búsqueda; clic en **Run** para ejecutar
+- **Sketches** — lista en tres secciones: **2019** (piezas 2019), **Originals** (versiones originales) y **2026** (piezas nuevas); búsqueda; clic en **Run** para ejecutar
 - **Vista Run** — ejecución de sketches con controles
 
 ### Vista Run
@@ -60,13 +60,13 @@ Cuando ejecutas un sketch desde la lista (solo en dev):
 Para ejecutar un sketch directamente desde la terminal:
 
 ```bash
-npm run sketch sketch-src/nombre-del-sketch.js --open
+npm run sketch sketches/2019/nombre-del-sketch.js --open
 ```
 
 O con el CLI directamente:
 
 ```bash
-npx canvas-sketch sketch-src/random-circles.js --open
+npx canvas-sketch 2019/random-circles.js --open
 ```
 
 ### Exportar arte
@@ -83,8 +83,9 @@ Cuando un sketch está corriendo en el navegador:
 ├── server.js              # Servidor Express (producción): app + API + proxy a canvas-sketch
 ├── server-local.js        # API local para desarrollo (puerto 3001)
 ├── vite.config.ts         # Vite + proxy a API
-├── sketches-metadata.json # Parámetros por sketch (ver docs/sketches-metadata.md)
+├── sketches-metadata.json # Parámetros por sketch 2019 (ver docs/sketches-metadata.md)
 ├── originals-metadata.json# Opcional: override tech/params para originals
+├── 2026-metadata.json     # Parámetros por sketch 2026
 ├── index.html             # Entry HTML (Vite)
 ├── docs/                  # Documentación del proyecto
 ├── src/                   # App React (TypeScript)
@@ -92,19 +93,23 @@ Cuando un sketch está corriendo en el navegador:
 │   ├── App.tsx
 │   ├── components/        # Layout, Nav, Footer, LandingBg, etc.
 │   └── pages/             # Landing, Manifest, Gallery, Void, Sketches, Run
-├── sketch-src/            # Sketches (canvas-sketch)
-│   ├── s33d-params.js     # Helper para params en tiempo de ejecución
-│   ├── *.js               # Sketches individuales
-│   ├── planets/           # Sketch en subcarpeta
-│   └── html-canvas/       # Sketches HTML/Canvas independientes
+├── sketches/              # Todo lo relacionado con sketches
+│   ├── 2019/              # Piezas 2019
+│   │   ├── s33d-params.js # Helper para params en tiempo de ejecución
+│   │   ├── *.js           # Sketches individuales
+│   │   ├── planets/       # Sketch en subcarpeta
+│   │   └── html-canvas/   # Sketches HTML/Canvas independientes
+│   ├── originals/examples/# Piezas originales
+│   ├── 2026/              # Piezas nuevas
+│   ├── assets/            # Imágenes para sketches (ver assets/images/README.md)
+│   ├── examples/         # Ejemplos canvas-sketch (referencia)
+│   └── src-sketches-backup/ # Backup de sketches
 ├── public/                # Assets estáticos (fonts, images, gallery-data.json)
-└── assets/
-    └── images/            # Imágenes para sketches (ver assets/images/README.md)
 ```
 
 ## Parámetros de sketches
 
-Los parámetros se definen en `sketches-metadata.json`. Cada sketch puede tener un array `params` con:
+Los parámetros se definen en `sketches-metadata.json` (2019) o `2026-metadata.json` (2026). Cada sketch puede tener un array `params` con:
 
 - **Slider**: `{ "key": "opacity", "label": "Opacity", "min": 0.5, "max": 1, "step": 0.05, "value": 0.85 }`
 - **Texto**: `{ "key": "character", "label": "Character", "type": "text", "value": "¨", "placeholder": "¨ § · …" }`
@@ -113,7 +118,7 @@ Ver `docs/sketches-metadata.md` para el esquema completo.
 
 ## Assets
 
-Algunos sketches (como `image-pixel-sorting.js`) requieren imágenes en `assets/images/`. Ver `assets/images/README.md` para más detalles.
+Algunos sketches (como `image-pixel-sorting.js`) requieren imágenes en `sketches/assets/images/`. Ver `sketches/assets/images/README.md` para más detalles.
 
 ## Build y deploy
 
@@ -138,8 +143,8 @@ El servidor excluye automáticamente:
 
 ## Otras carpetas
 
-- **examples/** — ejemplos y documentación de canvas-sketch (referencia)
-- **sketch-src/html-canvas/** — sketches HTML/Canvas independientes con su propio servidor (Cmd+S para guardar snapshots)
+- **sketches/examples/** — ejemplos y documentación de canvas-sketch (referencia)
+- **sketches/2019/html-canvas/** — sketches HTML/Canvas independientes con su propio servidor (Cmd+S para guardar snapshots)
 
 ## Licencia
 

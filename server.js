@@ -7,8 +7,9 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SKETCH_PORT = 9966;
-const SRC_DIR = path.join(__dirname, "sketch-src");
-const ORIGINALS_DIR = path.join(__dirname, "originals", "examples");
+const DIR_2019 = path.join(__dirname, "sketches", "2019");
+const DIR_ORIGINALS = path.join(__dirname, "sketches", "originals", "examples");
+const DIR_2026 = path.join(__dirname, "sketches", "2026");
 
 // Sketches to exclude (different runtime, headless, or subdirs)
 const EXCLUDED = new Set([
@@ -32,43 +33,67 @@ try {
   }
 } catch (_) {}
 
-function getSketchMeta(id) {
+let metadata2026 = {};
+try {
+  const meta2026Path = path.join(__dirname, "2026-metadata.json");
+  if (fs.existsSync(meta2026Path)) {
+    metadata2026 = JSON.parse(fs.readFileSync(meta2026Path, "utf8"));
+  }
+} catch (_) {}
+
+function getSketchMeta2019(id) {
   const m = sketchesMetadata[id];
   if (!m) return { tech: ["canvas-sketch"], params: undefined };
   if (Array.isArray(m)) return { tech: m, params: undefined };
-  return {
-    tech: m.tech || ["canvas-sketch"],
-    params: m.params,
-  };
+  return { tech: m.tech || ["canvas-sketch"], params: m.params };
 }
 
-function getSketches() {
-  const files = fs.readdirSync(SRC_DIR);
+function getSketchMeta2026(id) {
+  const m = metadata2026[id];
+  if (!m) return { tech: ["canvas-sketch"], params: undefined };
+  if (Array.isArray(m)) return { tech: m, params: undefined };
+  return { tech: m.tech || ["canvas-sketch"], params: m.params };
+}
+
+function getSketches2019() {
+  if (!fs.existsSync(DIR_2019)) return [];
+  const files = fs.readdirSync(DIR_2019);
+  const list = files
+    .filter((f) => f.endsWith(".js") && !EXCLUDED.has(f))
+    .map((f) => {
+      const id = f.replace(/\.js$/, "");
+      const { tech, params } = getSketchMeta2019(id);
+      return { id, name: f, tech, params };
+    })
+    .sort((a, b) => a.id.localeCompare(b.id));
+  const planetsDir = path.join(DIR_2019, "planets");
+  if (fs.existsSync(planetsDir)) {
+    const { tech, params } = getSketchMeta2019("planets/index");
+    list.push({ id: "planets/index", name: "planets/index.js", tech, params });
+    list.sort((a, b) => a.id.localeCompare(b.id));
+  }
+  return list.map((s) => ({ ...s, type: "2019-seeds" }));
+}
+
+function getSketches2026() {
+  if (!fs.existsSync(DIR_2026)) return [];
+  const files = fs.readdirSync(DIR_2026);
   return files
     .filter((f) => f.endsWith(".js") && !EXCLUDED.has(f))
     .map((f) => {
       const id = f.replace(/\.js$/, "");
-      const { tech, params } = getSketchMeta(id);
-      return { id, name: f, tech, params };
+      const fullPath = path.join(DIR_2026, f);
+      const meta = getSketchMeta2026(id);
+      const tech = meta.tech || inferTechFromFile(fullPath);
+      return { id, name: f, tech, params: meta.params, type: "2026" };
     })
     .sort((a, b) => a.id.localeCompare(b.id));
 }
 
-// Check for sketches in subdirs (planets, etc.)
-function getAllSketches() {
-  const sketches = getSketches();
-  const planetsDir = path.join(SRC_DIR, "planets");
-  if (fs.existsSync(planetsDir)) {
-    const { tech, params } = getSketchMeta("planets/index");
-    sketches.push({
-      id: "planets/index",
-      name: "planets/index.js",
-      tech,
-      params,
-      type: "2019-seeds",
-    });
-  }
-  return sketches.map((s) => ({ ...s, type: "2019-seeds" }));
+function getBaseDir(type) {
+  if (type === "original") return DIR_ORIGINALS;
+  if (type === "2026") return DIR_2026;
+  return DIR_2019;
 }
 
 const ORIGINALS_EXCLUDED = new Set([
@@ -133,14 +158,17 @@ function inferTechFromFile(filePath) {
 }
 
 function getSketchTech(type, name) {
-  const isOriginal = type === "original";
-  if (isOriginal) {
+  if (type === "original") {
     const meta = originalsMetadata[name] || {};
     if (meta.tech) return meta.tech;
-    const sketchPath = path.join(ORIGINALS_DIR, name + ".js");
+    const sketchPath = path.join(DIR_ORIGINALS, name + ".js");
     return inferTechFromFile(sketchPath);
   }
-  const { tech } = getSketchMeta(name);
+  if (type === "2026") {
+    const { tech } = getSketchMeta2026(name);
+    return tech;
+  }
+  const { tech } = getSketchMeta2019(name);
   return tech;
 }
 
@@ -150,7 +178,7 @@ function isP5Sketch(type, name) {
 }
 
 function getOriginals() {
-  if (!fs.existsSync(ORIGINALS_DIR)) return [];
+  if (!fs.existsSync(DIR_ORIGINALS)) return [];
   const list = [];
   function scan(dir, prefix = "") {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -175,7 +203,7 @@ function getOriginals() {
       }
     }
   }
-  scan(ORIGINALS_DIR);
+  scan(DIR_ORIGINALS);
   return list.sort((a, b) => a.id.localeCompare(b.id));
 }
 
@@ -244,11 +272,10 @@ app.get("/gallery/", (req, res) => {
   res.redirect(301, "/gallery");
 });
 
-app.get(/^\/api\/sketch-src\/(2019-seeds|original)\/(.+)$/, (req, res) => {
+app.get(/^\/api\/sketch-src\/(2019-seeds|original|2026)\/(.+)$/, (req, res) => {
   const type = req.params[0];
   const name = req.params[1].replace(/\/$/, "");
-  const isOriginal = type === "original";
-  const baseDir = isOriginal ? ORIGINALS_DIR : SRC_DIR;
+  const baseDir = getBaseDir(type);
   const sketchPath = path.join(baseDir, name + ".js");
   if (!fs.existsSync(sketchPath)) {
     return res.status(404).send("Sketch not found");
@@ -257,11 +284,10 @@ app.get(/^\/api\/sketch-src\/(2019-seeds|original)\/(.+)$/, (req, res) => {
   res.send(fs.readFileSync(sketchPath, "utf8"));
 });
 
-app.get(/^\/sketch-p5\/(2019-seeds|original)\/(.+)$/, (req, res) => {
+app.get(/^\/sketch-p5\/(2019-seeds|original|2026)\/(.+)$/, (req, res) => {
   const type = req.params[0];
   const name = req.params[1].replace(/\/$/, "");
-  const isOriginal = type === "original";
-  const baseDir = isOriginal ? ORIGINALS_DIR : SRC_DIR;
+  const baseDir = getBaseDir(type);
   const sketchPath = path.join(baseDir, name + ".js");
   if (!fs.existsSync(sketchPath)) {
     return res.status(404).send("Sketch not found");
@@ -285,7 +311,7 @@ app.get(/^\/sketch-p5\/(2019-seeds|original)\/(.+)$/, (req, res) => {
 });
 
 app.use(express.json());
-app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use("/assets", express.static(path.join(__dirname, "sketches", "assets")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
@@ -307,19 +333,19 @@ app.get("/api/sketch-status", (req, res) => {
 
 app.get("/api/sketches", (req, res) => {
   try {
-    const seeds = getAllSketches();
+    const seeds2019 = getSketches2019();
     const originals = getOriginals();
-    res.json({ "2019-seeds": seeds, originals });
+    const seeds2026 = getSketches2026();
+    res.json({ "2019-seeds": seeds2019, originals, "2026": seeds2026 });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.post(/^\/api\/run\/(2019-seeds|original)\/(.+)$/, async (req, res) => {
+app.post(/^\/api\/run\/(2019-seeds|original|2026)\/(.+)$/, async (req, res) => {
   const type = req.params[0];
   const name = req.params[1].replace(/\/$/, "");
-  const isOriginal = type === "original";
-  const baseDir = isOriginal ? ORIGINALS_DIR : SRC_DIR;
+  const baseDir = getBaseDir(type);
   const sketchPath = path.join(baseDir, name + ".js");
 
   if (!fs.existsSync(sketchPath)) {

@@ -31,7 +31,7 @@ export default function Run() {
   const paramValuesRef = useRef<Record<string, number | string>>({});
   const [sketchList, setSketchList] = useState<{ type: string; id: string }[]>([]);
 
-  const isValidType = type === "2019-seeds" || type === "original";
+  const isValidType = type === "2019-seeds" || type === "original" || type === "2026";
 
   useEffect(() => {
     paramValuesRef.current = paramValues;
@@ -79,7 +79,7 @@ export default function Run() {
     fetch("/api/sketches")
       .then((r) => r.json())
       .then((data) => {
-        const seeds = (data["2019-seeds"] || []).map((s: { id: string }) => ({
+        const seeds2019 = (data["2019-seeds"] || []).map((s: { id: string }) => ({
           type: "2019-seeds",
           id: s.id,
         }));
@@ -87,13 +87,20 @@ export default function Run() {
           type: "original",
           id: s.id,
         }));
-        const list = [...seeds, ...originals];
+        const seeds2026 = (data["2026"] || []).map((s: { id: string }) => ({
+          type: "2026",
+          id: s.id,
+        }));
+        const list = [...seeds2026, ...seeds2019, ...originals];
         setSketchList(list);
 
         const sketch = list.find(
           (s: { id: string; type: string }) => s.id === sketchName && s.type === type
         );
-        const meta = (data["2019-seeds"] || []).concat(data.originals || []).find(
+        const meta = (data["2019-seeds"] || [])
+          .concat(data.originals || [])
+          .concat(data["2026"] || [])
+          .find(
           (s: { id: string; type?: string }) =>
             s.id === sketchName && (s.type ?? "2019-seeds") === type
         );
