@@ -275,56 +275,6 @@ export default function LandingBgDynamic() {
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     }
 
-    function renderOverdraw(t: number) {
-      const ctx = canvasOverdraw.getContext("2d")!;
-      const w = canvasOverdraw.width;
-      const h = canvasOverdraw.height;
-      const size = Math.min(w, h);
-      const ox = (w - size) / 2;
-      const oy = (h - size) / 2;
-      const frame = Math.floor(t / 33);
-      overdrawSeed = frame * 7;
-      const starX = ox + seededRandom(overdrawSeed++) * size;
-      const starY = oy + seededRandom(overdrawSeed++) * size;
-      const starSides = Math.floor(seededRandom(overdrawSeed++) * 5) + 4;
-      const starStroke = seededRandom(overdrawSeed++) > 0.5;
-
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, 0, w, h);
-      ctx.save();
-      ctx.translate(starX, starY);
-      ctx.rotate(seededRandom(overdrawSeed++) * Math.PI * 2);
-
-      const r1 = size / 10;
-      const r2 = size / 5;
-      ctx.beginPath();
-      for (let i = 0; i < starSides * 2; i++) {
-        const r = i % 2 === 0 ? r1 : r2;
-        const a = (i / (starSides * 2)) * Math.PI * 2 - Math.PI / 2;
-        const x = Math.cos(a) * r;
-        const y = Math.sin(a) * r;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-
-      const lw = 8 * (window.devicePixelRatio || 1);
-      if (starStroke) {
-        ctx.strokeStyle = "#fff";
-        ctx.fillStyle = "#000";
-        ctx.lineWidth = lw;
-        ctx.stroke();
-        ctx.fill();
-      } else {
-        ctx.fillStyle = "#fff";
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = lw;
-        ctx.fill();
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-
     function renderScribble(t: number) {
       const ctx = canvasScribble.getContext("2d")!;
       const w = canvasScribble.width;
@@ -389,6 +339,56 @@ export default function LandingBgDynamic() {
         }
       }
       ctx.stroke();
+      ctx.restore();
+    }
+
+    function renderOverdraw(t: number) {
+      const ctx = canvasOverdraw.getContext("2d")!;
+      const w = canvasOverdraw.width;
+      const h = canvasOverdraw.height;
+      const size = Math.min(w, h);
+      const ox = (w - size) / 2;
+      const oy = (h - size) / 2;
+      const frame = Math.floor(t / 33);
+      overdrawSeed = frame * 7;
+      const starX = ox + seededRandom(overdrawSeed++) * size;
+      const starY = oy + seededRandom(overdrawSeed++) * size;
+      const starSides = Math.floor(seededRandom(overdrawSeed++) * 5) + 4;
+      const starStroke = seededRandom(overdrawSeed++) > 0.5;
+
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(starX, starY);
+      ctx.rotate(seededRandom(overdrawSeed++) * Math.PI * 2);
+
+      const r1 = size / 10;
+      const r2 = size / 5;
+      ctx.beginPath();
+      for (let i = 0; i < starSides * 2; i++) {
+        const r = i % 2 === 0 ? r1 : r2;
+        const a = (i / (starSides * 2)) * Math.PI * 2 - Math.PI / 2;
+        const x = Math.cos(a) * r;
+        const y = Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+
+      const lw = 8 * (window.devicePixelRatio || 1);
+      if (starStroke) {
+        ctx.strokeStyle = "#fff";
+        ctx.fillStyle = "#000";
+        ctx.lineWidth = lw;
+        ctx.stroke();
+        ctx.fill();
+      } else {
+        ctx.fillStyle = "#fff";
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = lw;
+        ctx.fill();
+        ctx.stroke();
+      }
       ctx.restore();
     }
 

@@ -61,8 +61,8 @@ export default function Run() {
 
     const updateSize = () => {
       const rect = container.getBoundingClientRect();
-      const w = Math.max(rect.width * 0.9, 360);
-      const h = Math.max(rect.height * 0.9, 360);
+      const w = Math.max(rect.width, 360);
+      const h = Math.max(rect.height, 360);
       iframe.style.width = w + "px";
       iframe.style.height = h + "px";
     };
