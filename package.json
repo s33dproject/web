@@ -61,7 +61,7 @@
     "lineclip": "^1.1.5",
     "load-asset": "^1.2.0",
     "mat4-recompose": "^1.0.0",
-    "nice-color-palettes": "^3.0.0",
+    "nice-color-palettes": "^4.0.0",
     "normals": "^1.0.0",
     "p5": "^1.11.0",
     "parse-color": "^1.0.0",
